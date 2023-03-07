@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const cookieParser = require("cookie-parser");
 const db = require("./db");
-// const routes = require("./routes");
+const routes = require("./routes");
 
 app.use(express.json());
 app.use(cookieParser());
