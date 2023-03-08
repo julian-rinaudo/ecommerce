@@ -1,0 +1,7 @@
+.Container-Grid-Body-F{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    width: 80%;
+    margin: 5% auto;
+    gap: 5%;
+}
