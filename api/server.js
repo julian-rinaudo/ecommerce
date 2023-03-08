@@ -3,11 +3,13 @@ const app = express();
 const cookieParser = require("cookie-parser");
 const db = require("./db");
 const routes = require("./routes");
+const models = require('./models');
 
 app.use(express.json());
 app.use(cookieParser());
 
 app.use("/api", routes);
+
 
 app.use("/api", (req, res) => {
   res.sendStatus(404);
