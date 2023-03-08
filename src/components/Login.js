@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { LockClosedIcon } from "@heroicons/react/20/solid";
 
 export default function Login() {
+  const navigate = useNavigate();
   const initialState = {
     email: "",
     password: "",
@@ -21,6 +22,7 @@ export default function Login() {
   const handleRegister = (e) => {
     e.preventDefault();
     console.log(form);
+    navigate("/");
   };
   return (
     <>
