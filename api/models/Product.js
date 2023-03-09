@@ -25,6 +25,10 @@ Product.init({
         allowNull: false,
         defaultValue:0
     },
+    image:{
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
     
 }, {sequelize: db, modelName: "products"});
 

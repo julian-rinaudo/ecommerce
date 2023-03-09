@@ -3,11 +3,10 @@ const { User, Product } = require("../models");
 const loginRouter = express.Router();
 
 loginRouter.post("/", (req, res) => {
-//   const { email, password } = req.body;
-//   User.findOne({ where: { email } })
-//     // .then((user) => res.cookie("user", user))
-//     .then(() => console.log("hola"))
-//     .then(() => res.send("todo okey"));
+  const { email, password } = req.body;
+  User.findOne({ where: { email } })
+    .then((user) => res.cookie("user", user))
+    .then(() => res.send("todo okey"));
 
 
 
