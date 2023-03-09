@@ -1,9 +1,9 @@
 const { Model, DataTypes } = require('sequelize');
-const db = require('../db/');
+const db = require('../db');
 
-class Product extends Model {}
+class Shirt_Customize extends Model {}
 
-Product.init({
+Shirt_Customize.init({
     color: {
         type: DataTypes.STRING,
         allowNull: false
@@ -30,7 +30,6 @@ Product.init({
         allowNull: false,
     },
     
-}, {sequelize: db, modelName: "products"});
+}, {sequelize: db, modelName: "Shirt_Customize"});
 
-
-module.exports = Product;
+module.exports = Shirt_Customize;

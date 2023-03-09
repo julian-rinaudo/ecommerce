@@ -8,13 +8,14 @@ import Body from "./components/Home/Body_Home/Body";
 
 function App() {
   return (
-
-<Navbar />
-    <Routes>
-      <Route path="/" element={<Body/>}/>
-      <Route path="/register" element={<Register />} />
-      <Route path="/login" element={<Login />} />
-    </Routes>
+    <>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Body />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
+    </>
   );
 }
 

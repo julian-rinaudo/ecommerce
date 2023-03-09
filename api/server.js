@@ -10,7 +10,6 @@ app.use(cookieParser());
 
 app.use("/api", routes);
 
-
 app.use("/api", (req, res) => {
   res.sendStatus(404);
 });

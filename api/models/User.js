@@ -4,6 +4,10 @@ const db = require('../db/');
 class User extends Model {}
 
 User.init({
+    user_type: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
     first_name: {
         type: DataTypes.STRING,
         allowNull: false

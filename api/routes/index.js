@@ -6,7 +6,7 @@ const loginRouter = require("./login");
 const logoutRouter = require("./logout");
 const userEditRouter = require("./userEdit");
 const userLogedRouter = require("./userLoged");
-const productsAdminRouter = require("./productsAdmin");
+const productsAdminRouter = require("./products");
 const productsUserRouter = require("./productsUser");
 
 router.use('/register', registerRouter);
