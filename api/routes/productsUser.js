@@ -1,15 +1,15 @@
 const express = require("express");
-const { User, Product } = require("../models");
+const { User, Shirt_Customize } = require("../models");
 const productsUserRouter = express.Router();
 
 
 
-productsUserRouter.post ("/", (req, res) => {
-    const { color, size, design, price, stock, image } = req.body;
-    Product.create({ color, size, design, price, stock,image })
-      .then((product) => res.status(201).send(product))
-      .catch((err) => console.log('error desde productRouter',err));
-})
+// productsUserRouter.post ("/", (req, res) => {
+//     const { description, color, style, price, stock, size, image } = req.body;
+//     Product.create({ description, color, style, price, stock, size, image })
+//       .then((product) => res.status(201).send(product))
+//       .catch((err) => console.log('error desde productRouter',err));
+// })
 
 
 

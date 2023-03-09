@@ -1,5 +1,5 @@
 const express = require('express');
-const { User, Product } = require("../models");
+const { User, Shirt_Model } = require("../models");
 const logoutRouter = express.Router();
 
 logoutRouter.get('/',(req,res) => {

@@ -1,5 +1,5 @@
 const express = require('express');
-const { User, Product } = require("../models");
+const { User, Shirt_Model } = require("../models");
 const userEditRouter = express.Router();
 
 userEditRouter.put('/:id',(req,res) => {

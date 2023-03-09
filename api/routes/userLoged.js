@@ -1,9 +1,9 @@
 const express = require('express');
-const { User, Product } = require("../models");
+const { User, Shirt_Model } = require("../models");
 const userLogedRouter = express.Router();
 
-userLogedRouter.get('/',(req,res) => {
+// userLogedRouter.get('/',(req,res) => {
     
-})
+// })
 
 module.exports = userLogedRouter
