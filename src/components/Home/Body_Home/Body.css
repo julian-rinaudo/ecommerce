@@ -5,3 +5,10 @@
     margin: 5% auto;
     gap: 5%;
 }
+
+@media(max-width:425px) {
+    .Container-Grid-Body-F{
+        grid-template-columns: repeat(2,1fr);
+        width: 90%;
+    }
+}
