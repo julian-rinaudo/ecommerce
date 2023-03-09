@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { LockClosedIcon } from "@heroicons/react/20/solid";
 
 export default function Register() {
+  const navigate = useNavigate();
   const initialState = {
     first_name: "",
     last_name: "",
@@ -22,6 +23,7 @@ export default function Register() {
   const handleRegister = (e) => {
     e.preventDefault();
     console.log(form);
+    navigate("/login");
   };
   return (
     <>
@@ -72,8 +74,8 @@ export default function Register() {
                   type="first_name"
                   autoComplete="first_name"
                   value={form.first_name}
-                  pattern="^[A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]{5,20}$"
-                  title="El name no puede contener menos de 10 y mas de 20 caracteres"
+                  pattern="^[A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]{4,20}$"
+                  title="El name no puede contener menos de 4 y mas de 20 caracteres"
                   required
                   className="relative block w-full rounded-t-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   placeholder="First Name"

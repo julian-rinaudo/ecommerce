@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { LockClosedIcon } from "@heroicons/react/20/solid";
 
 export default function Login() {
+  const navigate = useNavigate();
   const initialState = {
     email: "",
     password: "",
@@ -21,6 +22,7 @@ export default function Login() {
   const handleRegister = (e) => {
     e.preventDefault();
     console.log(form);
+    navigate("/");
   };
   return (
     <>
@@ -44,12 +46,11 @@ export default function Login() {
               Sign in to your account
             </h2>
             <p className="mt-2 text-center text-sm text-gray-600">
-              Or
               <Link
                 to="/register"
                 className="font-medium text-indigo-600 hover:text-indigo-500"
               >
-                Create an Account
+                Or Create an Account
               </Link>
             </p>
           </div>
