@@ -5,7 +5,7 @@ class ShirtModel extends Model {}
 
 ShirtModel.init({
     description: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false,
     },
     style: {
