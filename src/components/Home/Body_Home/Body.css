@@ -1,0 +1,14 @@
+.Container-Grid-Body-F{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    width: 80%;
+    margin: 5% auto;
+    gap: 5%;
+}
+
+@media(max-width:425px) {
+    .Container-Grid-Body-F{
+        grid-template-columns: repeat(2,1fr);
+        width: 90%;
+    }
+}
