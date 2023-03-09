@@ -3,10 +3,12 @@ import { Routes, Route } from "react-router-dom";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import "./App.css";
+import Body from "./components/Home/Body_Home/Body";
 
 function App() {
   return (
     <Routes>
+      <Route path="/" element={<Body/>}/>
       <Route path="/register" element={<Register />} />
       <Route path="/login" element={<Login />} />
     </Routes>
