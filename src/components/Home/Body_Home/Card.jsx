@@ -1,10 +1,34 @@
-import React from "react";
-import './Card.css'
+import React, { useState, useEffect } from "react";
+import "./Card.css";
 
-const Card = ({ el }) => {
+const Card = ({ el, eliminarUnidad, añadirUnidad, eliminarPedido }) => {
+  const [cantidad, setCantidad] = useState(1);
+
+  useEffect(() => {
+    if (el.cantidad > 1) setCantidad(el.cantidad);
+    return () => {};
+  }, [el]);
+
+  const agregar = (product) => {
+    if (cantidad < 5) {
+      setCantidad(cantidad + 1);
+      añadirUnidad(product);
+    }
+  };
+
+  const disminuir = (product) => {
+    if (cantidad > 1) {
+      setCantidad(cantidad - 1);
+      eliminarUnidad(product);
+    }
+  };
+
   return (
     <>
-      <div id="Card-Grid" className="max-w-sm rounded overflow-hidden shadow-lg">
+      <div
+        id="Card-Grid"
+        className="max-w-sm rounded overflow-hidden shadow-lg"
+      >
         <img className="w-full" src={el.imagen} alt="Sunset in the mountains" />
         <div className="px-6 py-4">
           <div className="font-bold text-xl mb-2">{el.color}</div>
@@ -20,6 +44,20 @@ const Card = ({ el }) => {
             {el.precio}
           </span>
         </div>
+        {eliminarPedido && eliminarUnidad && añadirUnidad && (
+          <div className="flex justify-between items-center px-6 pt-4 pb-12" style={{width:"80%"}}>
+            <button
+              onClick={() => disminuir(el)}
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">-</button>
+            <span>{cantidad}</span>
+            <button
+              onClick={() => agregar(el)}
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">+</button>
+            <button
+              onClick={() => eliminarPedido(el)}
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Elminar</button>
+          </div>
+        )}
       </div>
     </>
   );
