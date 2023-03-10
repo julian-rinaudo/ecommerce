@@ -1,10 +1,12 @@
 const express = require("express");
 const app = express();
 const cookieParser = require("cookie-parser");
+const cors = require("cors");
 const db = require("./db");
 const routes = require("./routes");
-const models = require('./models');
+const models = require("./models");
 
+app.use(cors({ origin: true, credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
 

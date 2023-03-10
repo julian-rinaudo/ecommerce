@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { LockClosedIcon } from "@heroicons/react/20/solid";
+import axios from "axios";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -22,9 +23,17 @@ export default function Register() {
 
   const handleRegister = (e) => {
     e.preventDefault();
-    console.log(form);
+    axios
+      .post(`http://localhost:3001/api/register`, { ...form })
+      .then((res) => res.data)
+      .then((user) => {
+        alert(`New user created ${user.username}`);
+      })
+      //   .then(() => navigate("/"))
+      .catch(() => alert("Signup Failed"));
     navigate("/login");
   };
+
   return (
     <>
       {/*
