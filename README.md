@@ -20,6 +20,7 @@ Para instalar todas las dependencias necesarias.
 
 ### `npm start`
 
-Corremos la app escuchando en el `puerto 3001` al back y en el  `puerto 3001` al front. 
+Corremos la app escuchando en el `puerto 3001` al back y en el  `puerto 3000` al front. 
 
 Dejo la vista previa de lo logrado:
+![image](https://user-images.githubusercontent.com/106751615/224390564-0ba6fb1f-3057-4256-97d4-9c79c2970e8a.png)
