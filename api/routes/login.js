@@ -5,8 +5,10 @@ const loginRouter = express.Router();
 loginRouter.post("/", (req, res) => {
   const { email, password } = req.body;
   User.findOne({ where: { email } })
-    .then((user) => res.cookie("tokenUser", user.password))
-    .then(() => res.send("usuario loggeado"));
+    .then((user) => {
+      res.cookie("tokenUser", user.password)
+    res.send(user)})
+    // .then(() => res.send("usuario loggeado"));
 
   //     User.findOne({ where: { email } }).then((user) => {
   //       if (!user) return res.sendStatus(401);
