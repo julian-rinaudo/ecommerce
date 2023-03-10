@@ -3,7 +3,7 @@ const { User, Shirt_Model } = require("../models");
 const productsRouter = express.Router();
 
 productsRouter.get("/", (req, res) => {
-  Product.findAll()
+  Shirt_Model.findAll()
     .then((products) => res.send(products))
     .catch((error) => console.log("Error desde productRouter", error));
 });
@@ -16,8 +16,7 @@ productsRouter.get("/:id", (req, res) => {
 });
 
 productsRouter.post("/", (req, res) => {
-  const { description, color, style, price, stock, size, image } = req.body;
-  Product.bulkCreate({ description, color, style, price, stock, size, image })
+  Shirt_Model.bulkCreate(req.body)
     .then((product) => res.status(201).send(product))
     .catch((err) => console.log("error desde productRouter", err));
 });
@@ -29,7 +28,7 @@ Libros.bulkCreate(req.body).then((libros) => res.status(201).send(libros));
 productsRouter.put("/:id", (req, res) => {
   const { description, color, style, price, stock, size, image } = req.body;
   const { id } = req.params;
-  Product.update(
+  Shirt_Model.update(
     { description, color, style, price, stock, size, image },
     { where: { id }, returning: true, plain: true }
   )
@@ -39,7 +38,7 @@ productsRouter.put("/:id", (req, res) => {
 
 productsRouter.delete("/remove/:id", (req, res) => {
   const { id } = req.params;
-  Product.destroy({ where: { id } })
+  Shirt_Model.destroy({ where: { id } })
     .then(() => res.sendStatus(202))
     .catch((err) => console.log("error desde productRouter", err));
 });

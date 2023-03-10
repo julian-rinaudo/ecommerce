@@ -10,18 +10,13 @@ const Body = () => {
     const [data, setData] = useState([])
 
     useEffect(()=>{
-        const dataFunction=async()=>{
-            const getDataPromise = await FakeData
-            setData(getDataPromise)
-        }
-
-        dataFunction()
+        axios.get('/api/products')
+        .then(res => setData(res.data))
     },[])
-
   return (
     <div className="Container-Grid-Body-F">{
         data.length>0
-        ? data.map((el,index)=> <Link key={index} to={`/${el.color}/${el.disenio}`}><Card key={index} el={el}/></Link>)
+        ? data.map((product,i)=> <Link key={i} to={`/product/${product.id}`}><Card key={i} product={product}/></Link>)
         : <h1>Spinner</h1>
         }
     </div>
