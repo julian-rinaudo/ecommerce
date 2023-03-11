@@ -26,7 +26,7 @@ export default function Login() {
   const handleRegister = async (e) => {
     e.preventDefault();
     const user = await axios
-      .post(`http://localhost:3001/api/login`, { ...form })
+      .post("/api/user/login", { ...form })
       .then((res) => res.data)
       .then((user) => {
         return {

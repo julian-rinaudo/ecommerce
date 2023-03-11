@@ -3,17 +3,14 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 
 function IndividualView() {
+  const { style } = useParams();
+  console.log(style);
 
-const {id} = useParams()
+  const [data, setData] = useState({});
 
-const [data,setData] = useState({})
-
-useEffect(() => {
-  axios(`/api/products/${id}`)
-  .then(res => setData(res.data))
-  
-}, [id])
-
+  useEffect(() => {
+    axios(`/api/products/styles/${style}`).then((res) => setData(res.data));
+  }, [style]);
 
   return (
     <div className="bg-white">
@@ -31,9 +28,11 @@ useEffect(() => {
             <p className="text-3xl font-bold  text-white sm:text-4xl pb-6">
               {data?.style}
             </p>
-            <h3 className="text-2xl font-semibold text-white ">$ {data?.price}</h3>
+            <h3 className="text-2xl font-semibold text-white ">
+              $ {data?.price}
+            </h3>
             <p className="mt-4 text-sm leading-6 text-gray-300">
-            {data?.description}
+              {data?.description}
             </p>
             <div>
               <p className="mt-6 text-lg font-semibold leading-10 text-white">
@@ -62,16 +61,12 @@ useEffect(() => {
               <div className="flex gap-4">
                 <div className="mt-2 flex justify-between gap-2">
                   <button
-                    className="w-8 h-8 rounded-full bg-black focus:outline-none"
-                    title="Black"
-                  ></button>
-                  <button
                     className="w-8 h-8 rounded-full bg-white border-2 border-gray-200 focus:outline-none"
                     title="White"
                   ></button>
                   <button
-                    className="w-8 h-8 rounded-full bg-green-500 focus:outline-none"
-                    title="Green"
+                    className="w-8 h-8 rounded-full bg-red-500 focus:outline-none"
+                    title="Red"
                   ></button>
                   <button
                     className="w-8 h-8 rounded-full bg-blue-300 focus:outline-none"
