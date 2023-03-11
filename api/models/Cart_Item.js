@@ -10,7 +10,7 @@ Cart_Item.init(
       allowNull: false,
     },
   },
-  { sequelize: db, modelName: "Cart_Item" }
+  { sequelize: db, modelName: "cart_item" }
 );
 
 module.exports = Cart_Item;

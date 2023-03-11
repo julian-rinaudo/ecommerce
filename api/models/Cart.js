@@ -11,7 +11,7 @@ Cart.init(
       defaultValue: 0,
     },
   },
-  { sequelize: db, modelName: "Cart" }
+  { sequelize: db, modelName: "cart" }
 );
 
 module.exports = Cart;
