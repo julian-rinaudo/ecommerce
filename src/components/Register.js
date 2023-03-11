@@ -24,7 +24,7 @@ export default function Register() {
   const handleRegister = (e) => {
     e.preventDefault();
     axios
-      .post(`http://localhost:3001/api/register`, { ...form })
+      .post("/api/user/register", { ...form })
       .then((res) => res.data)
       .then((user) => {
         alert(`New user created ${user.username}`);

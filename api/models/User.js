@@ -33,7 +33,7 @@ User.init(
       allowNull: true,
     },
   },
-  { sequelize: db, modelName: "users" }
+  { sequelize: db, modelName: "user" }
 );
 
 module.exports = User;

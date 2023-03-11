@@ -1,21 +1,14 @@
 const express = require("express");
 const router = express.Router();
 
-const registerRouter = require("./register");
-const loginRouter = require("./login");
-const logoutRouter = require("./logout");
-const userEditRouter = require("./userEdit");
-const userLogedRouter = require("./userLoged");
-const productsAdminRouter = require("./products");
-const productsUserRouter = require("./productsUser");
+const userRouter = require("./user");
+const productRouter = require("./products");
+const cartRouter = require("./cart");
+const adminRouter = require("./admin");
 
-router.use('/register', registerRouter);
-router.use('/login', loginRouter);
-router.use('/logout', logoutRouter);
-router.use('/user/edit', userEditRouter);
-router.use('/user/loged', userLogedRouter);
-router.use('/products', productsAdminRouter);
-router.use('/products/user', productsUserRouter);
+router.use("/cart", cartRouter);
+router.use("/user", userRouter);
+router.use("/admin", adminRouter);
+router.use("/products", productRouter);
 
-
-module.exports =  router
+module.exports = router;
