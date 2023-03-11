@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { LockClosedIcon } from "@heroicons/react/20/solid";
+import { setUser } from "../state/user";
+import axios from "axios";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -10,6 +13,7 @@ export default function Login() {
   };
 
   const [form, setform] = useState(initialState);
+  const dispatch = useDispatch();
 
   const handleChange = (evt) => {
     const value = evt.target.value;
@@ -19,9 +23,22 @@ export default function Login() {
     });
   };
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
-    console.log(form);
+    const user = await axios
+      .post(`http://localhost:3001/api/login`, { ...form })
+      .then((res) => res.data)
+      .then((user) => {
+        return {
+          first_name: user.first_name,
+          last_name: user.last_name,
+          email: user.email,
+          password: user.password,
+        };
+      });
+    dispatch(setUser(user));
+    !user ? alert("Login Failed") : alert(`Logged in as  ${user.first_name}`);
+    // .catch(() => ;
     navigate("/");
   };
   return (
