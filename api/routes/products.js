@@ -1,5 +1,5 @@
 const express = require("express");
-const { User, Shirt_Model } = require("../models");
+const { User, Shirt_Model, Shirt_Customize } = require("../models");
 const productsRouter = express.Router();
 
 productsRouter.get("/styles", (req, res) => {
@@ -27,5 +27,18 @@ productsRouter.get("/styles/:style", (req, res) => {
     })
     .catch((error) => console.log("Error desde productRouter", error));
 });
+
+productsRouter.post("/shirtCustomized/:id",(req,res) => {
+  const {data,url} = req.body
+  const {id} = req.params;
+  User.findByPk(id)
+  .then(user => {
+     Shirt_Customize.create({urlImage : url})
+     .then(shirtCustom => {
+       shirtCustom.setUser(user.id)
+        shirtCustom.setModel(data.id)
+     })
+  })
+})
 
 module.exports = productsRouter;
