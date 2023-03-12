@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Card.css";
 
-const Card = ({ el, eliminarUnidad, añadirUnidad, eliminarPedido }) => {
+const Card = ({ el, eliminarUnidad, añadirUnidad, eliminarProducto }) => {
   const [cantidad, setCantidad] = useState(1);
 
   useEffect(() => {
@@ -44,7 +44,7 @@ const Card = ({ el, eliminarUnidad, añadirUnidad, eliminarPedido }) => {
             {el.precio}
           </span>
         </div>
-        {eliminarPedido && eliminarUnidad && añadirUnidad && (
+        {eliminarProducto && eliminarUnidad && añadirUnidad && (
           <div className="flex justify-between items-center px-6 pt-4 pb-12" style={{width:"80%"}}>
             <button
               onClick={() => disminuir(el)}
@@ -54,7 +54,7 @@ const Card = ({ el, eliminarUnidad, añadirUnidad, eliminarPedido }) => {
               onClick={() => agregar(el)}
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">+</button>
             <button
-              onClick={() => eliminarPedido(el)}
+              onClick={() => eliminarProducto(el)}
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Elminar</button>
           </div>
         )}

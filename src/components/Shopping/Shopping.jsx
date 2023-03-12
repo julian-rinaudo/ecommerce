@@ -3,18 +3,18 @@ import {useSelector, useDispatch} from "react-redux";
 import { getShoppingApi } from '../../store/shopping/ShoppingStore';
 import Card from '../Home/Body_Home/Card';
 
-let arrC = []
-let precioContext = 0
-let controller = false
+let arrClon = [] // arreglo clon del estado "products"
+let precioContext = 0 // controlador del precio total del carrito
+let controller = false // controlador de ejecucion del useEffect que ejecuta una peticion a la api 
 
 const Shopping = () => {
 
     const dispatch = useDispatch();
-    const [products, setProducts] = useState([])
+    const [products, setProducts] = useState([]) // Estado incial del componente shopping
     const [contadorProductos, setcontadorProductos] = useState(0) // Cantidad de productos en el carrito
     const [precioFinal, setprecioFinal] = useState(0) // Precio total del carrito
 
-    const precioTotal = (array) => { // Actualiza el precio final del carrito
+    const montoTotal = (array) => { // Actualiza el monto total del carrito
         array.map(product=> {
             let precioSuma = precioContext += (product.precio * product.cantidad) 
             setprecioFinal(precioSuma)
@@ -22,17 +22,18 @@ const Shopping = () => {
     }
 
     useEffect(() => {
-        dispatch(getShoppingApi()).then(el=> {
-            setProducts(el.payload)
-            setcontadorProductos(el.payload.length)
-            if(!controller) {
+        // getShoppingApi es una funcion del componente de redux.
+        dispatch(getShoppingApi()).then(productos=> {
+            setProducts(productos.payload) // actualiza el estado de products con la respuesta a la api
+            setcontadorProductos(productos.payload.length)
+            if(!controller) { // controller evita que se duplique el monto total del carrito haciendo 2 peticiones api
                 controller = true
-                return precioTotal(el.payload)
+                return montoTotal(productos.payload)
             }
         })
     }, [])
 
-    const eliminarPedido = (el) => { // Elimina un producto del carrito
+    const eliminarProducto = (el) => { // Elimina un producto del carrito
 
         let cantidad = el.cantidad || 1,
             precio = el.precio,
@@ -46,11 +47,11 @@ const Shopping = () => {
             return el.id !== id
         });
 
-        const si = arrC.filter(el=>{ // elimina el elemento  del Arreglo Pricipal Clon "arrC"
+        const si = arrClon.filter(el=>{ // elimina el elemento  del Arreglo Pricipal Clon "arrClon"
             return el.disenio !== id
         })
 
-        arrC = si // devuelve el dato filtrado y lo setea en arrC
+        arrClon = si // devuelve el dato filtrado y lo setea en arrClon
 
         setprecioFinal(precioTotal) // Actualiza el precio total
         setProducts(newData)
@@ -93,7 +94,7 @@ const Shopping = () => {
             key={index}
             eliminarUnidad={eliminarUnidad} 
             añadirUnidad={añadirUnidad} 
-            eliminarPedido={eliminarPedido}/>)
+            eliminarProducto={eliminarProducto}/>)
         : <h1>Spinner</h1>
         }
     </div>
