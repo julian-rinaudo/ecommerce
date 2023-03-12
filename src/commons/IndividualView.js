@@ -20,7 +20,6 @@ function IndividualView() {
 
   const addShirtCustom = () => {
     const {id} = userLoged
-
     axios.post(`/api/products/shirtCustomized/${id}`,{data,url:'http:url.jpg'})
   }
 
@@ -92,6 +91,12 @@ function IndividualView() {
                 href="#"
                 className="rounded-md bg-fuchsia-500 px-3.5 py-2.5 mb-5 text-sm font-semibold text-white  shadow-sm hover:bg-fuchsia-700 "
                 onClick={addShirtCustom}
+              >
+                Customizar
+              </button>
+              <button
+                href="#"
+                className="rounded-md bg-fuchsia-500 px-3.5 py-2.5 mb-5 text-sm font-semibold text-white  shadow-sm hover:bg-fuchsia-700 "
               >
                 Agregar al carrito
               </button>
