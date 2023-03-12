@@ -10,7 +10,7 @@ Shirt_Customize.init(
       allowNull: false,
     },
   },
-  { sequelize: db, modelName: "shirt_customize" }
+  { sequelize: db, modelName: "shirt_customize" , timestamps: false }
 );
 
 module.exports = Shirt_Customize;

@@ -17,7 +17,7 @@ Shirt_Customize.belongsTo(User);
 User.hasMany(Shirt_Customize);
 
 // Shirt_Customize and Shirt_Model relationship
-Shirt_Customize.belongsTo(Shirt_Model);
-Shirt_Model.hasMany(Shirt_Customize);
+Shirt_Customize.belongsTo(Shirt_Model, {as: 'model'});
+Shirt_Model.hasMany(Shirt_Customize, {as: 'model'});
 
 module.exports = { User, Shirt_Customize, Shirt_Model, Cart, Cart_Item };

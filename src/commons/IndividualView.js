@@ -1,16 +1,28 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
+import { useSelector } from "react-redux";
+
+
 
 function IndividualView() {
+
   const { style } = useParams();
-  console.log(style);
+  const userLoged = useSelector(state => state.user)
+ 
 
   const [data, setData] = useState({});
-
   useEffect(() => {
     axios(`/api/products/styles/${style}`).then((res) => setData(res.data));
   }, [style]);
+
+  //agregamos remera customizada a tabla shirt_customs
+
+  const addShirtCustom = () => {
+    const {id} = userLoged
+
+    axios.post(`/api/products/shirtCustomized/${id}`,{data,url:'http:url.jpg'})
+  }
 
   return (
     <div className="bg-white">
@@ -79,6 +91,7 @@ function IndividualView() {
               <button
                 href="#"
                 className="rounded-md bg-fuchsia-500 px-3.5 py-2.5 mb-5 text-sm font-semibold text-white  shadow-sm hover:bg-fuchsia-700 "
+                onClick={addShirtCustom}
               >
                 Agregar al carrito
               </button>
