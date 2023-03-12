@@ -6,6 +6,7 @@ productsRouter.get("/styles", (req, res) => {
   Shirt_Model.findAll({
     where: {
       color: "white",
+      size: "M",
     },
   })
     .then((products) => {

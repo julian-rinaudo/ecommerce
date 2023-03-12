@@ -11,21 +11,21 @@
 
   {
     "description": "Nuestro Tank Top es perfecto para días calurosos o para lucir en el gimnasio.",
-    "color": "white",
+    "color": "blue",
     "style": "tank",
     "price": 4000,
-    "stock": 18,
-    "size": "S",
+    "stock": 16,
+    "size": "M",
     "image": "https://cdn11.bigcommerce.com/s-jw8eukttdm/images/stencil/1280x1280/products/132/1680/9360-16P-alt1__26403__46485.1635945092.1280.1280__18968.1645630817.jpg?c=1"
   },
 
   {
     "description": "Nuestro Tank Top es perfecto para días calurosos o para lucir en el gimnasio.",
-    "color": "white",
+    "color": "blue",
     "style": "tank",
     "price": 4000,
     "stock": 23,
-    "size": "M",
+    "size": "L",
     "image": "https://cdn11.bigcommerce.com/s-jw8eukttdm/images/stencil/1280x1280/products/132/1680/9360-16P-alt1__26403__46485.1635945092.1280.1280__18968.1645630817.jpg?c=1"
   },
 
@@ -36,6 +36,15 @@
     "price": 4000,
     "stock": 50,
     "size": "M",
+    "image": "https://cdn11.bigcommerce.com/s-jw8eukttdm/images/stencil/1280x1280/products/132/1717/9360-01W-alt1__10086__63358.1635945092.1280.1280__90802.1651675268.jpg?c=1"
+  },
+  {
+    "description": "Nuestro Tank Top es perfecto para días calurosos o para lucir en el gimnasio.",
+    "color": "white",
+    "style": "tank",
+    "price": 4000,
+    "stock": 30,
+    "size": "L",
     "image": "https://cdn11.bigcommerce.com/s-jw8eukttdm/images/stencil/1280x1280/products/132/1717/9360-01W-alt1__10086__63358.1635945092.1280.1280__90802.1651675268.jpg?c=1"
   },
 
