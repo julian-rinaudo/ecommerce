@@ -33,13 +33,13 @@ const Shopping = () => {
         })
     }, [])
 
-    const eliminarProducto = (el) => { // Elimina un producto del carrito
+    const eliminarProducto = (el, cantidad) => { // Elimina un producto del carrito
 
-        let cantidad = el.cantidad || 1,
+        let cantidadProduct = cantidad || 1,
             precio = el.precio,
             precioTotal = precioFinal,
             id = el.id,
-            precioResultado = cantidad * precio // Multiplica por la cantidad de productos para generar un precio total
+            precioResultado = cantidadProduct * precio // Multiplica por la cantidad de productos para generar un precio total
         precioTotal -= precioResultado // resta el precio total del proucto eliminado del precio total del carrito
 
         let newData = products.filter((el) => { // filtra el arr del carrito y lo devuelve sin el producto a eliminar
@@ -58,24 +58,12 @@ const Shopping = () => {
     }  
 
     const eliminarUnidad = (el) => { // Elimina una unidad de un producto del carrito
-        for (let index = 0; index < products.length; index++) {
-            if (products[index].id === el.id) { // Recorre cada elemento del arreglo Principal
-                const { cantidad } = products[index]
-                console.log(products[index].cantidad, cantidad)
-            }
-        }
         let precioCarrito = precioFinal
         let precioProducto = precioCarrito -= el.precio
         setprecioFinal(precioProducto) // devuelve el precioFinal con el valor de la unidad restada
     }
 
     const añadirUnidad = (el) => { // Agrega una unidad de un producto del carrito
-        for (let index = 0; index < products.length; index++) {
-            if (products[index].id === el.id) { // Recorre cada elemento del arreglo Principal
-                const { cantidad } = products[index]
-                console.log(products[index].cantidad, cantidad)
-            }
-        }
         let precioCarrito = precioFinal
         let precioProducto = precioCarrito += el.precio
         setprecioFinal(precioProducto) // devuelve el precioFinal con el valor de la unidad añadida

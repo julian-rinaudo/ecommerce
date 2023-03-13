@@ -23,6 +23,10 @@ const Card = ({ el, eliminarUnidad, añadirUnidad, eliminarProducto }) => {
     }
   };
 
+  const eliminarProductF = () =>{
+    eliminarProducto(el, cantidad)
+  }
+
   return (
     <>
       <div
@@ -54,7 +58,7 @@ const Card = ({ el, eliminarUnidad, añadirUnidad, eliminarProducto }) => {
               onClick={() => agregar(el)}
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">+</button>
             <button
-              onClick={() => eliminarProducto(el)}
+              onClick={() => eliminarProductF()}
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Elminar</button>
           </div>
         )}
