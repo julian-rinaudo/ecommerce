@@ -20,7 +20,7 @@ const Body = () => {
       {data.length > 0 ? (
         data.map((product, i) => (
           <Link key={i} to={`/product/${product.style}`}>
-            <Card key={i} product={product} />
+            <Card key={i} el={product} />
           </Link>
         ))
       ) : (

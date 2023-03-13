@@ -19,7 +19,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login setUser={setUser} />} />
         <Route path="/product/:style" element={<Details />} />
-           <Route path="/shopping" element={<Shopping/>}/>
+        <Route path="/shopping" element={<Shopping/>}/>
       </Routes>
     </>
 
