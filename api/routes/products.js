@@ -15,12 +15,13 @@ productsRouter.get("/styles", (req, res) => {
     .catch((error) => console.log("Error desde productRouter", error));
 });
 
-productsRouter.get("/styles/:style", (req, res) => {
-  const { style } = req.params;
+productsRouter.get("/styles/:style/:color/:size", (req, res) => {
+  const { style,color,size } = req.params;
   Shirt_Model.findOne({
     where: {
-      color: "white",
+      color: color,
       style: style,
+      size: size
     },
   })
     .then((product) => {
@@ -39,6 +40,7 @@ productsRouter.post("/shirtCustomized/:id",(req,res) => {
        shirtCustom.setUser(user.id)
         shirtCustom.setModel(data.id)
      })
+     .then(err => console.log('err desde productRouter',err))
   })
 })
 

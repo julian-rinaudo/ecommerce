@@ -1,16 +1,42 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useParams } from "react-router";
 
 function IndividualView() {
   const { style } = useParams();
-  console.log(style);
+  const userLoged = useSelector((state) => state.user);
 
   const [data, setData] = useState({});
+  const [color, setColor] = useState("white");
+  const [size, setSize] = useState("M");
+  const [url, setUrl] = useState("");
 
   useEffect(() => {
-    axios(`/api/products/styles/${style}`).then((res) => setData(res.data));
-  }, [style]);
+    axios(`/api/products/styles/${style}/${color}/${size}`).then((res) =>
+      setData(res.data)
+    );
+  }, [style, color, size]);
+
+  const addColor = (color) => {
+    setColor(color);
+  };
+  const addSize = (size) => {
+    setSize(size);
+  };
+  const addUrl = (e) => {
+    const url = e.target.value
+    setUrl(url)
+  };
+
+  const createShirtCustom = () => {
+    const { id } = userLoged;
+    axios.post(`/api/products/shirtCustomized/${id}`, {
+      data,
+      url,
+    });
+    console.log(data);
+  };
 
   return (
     <div className="bg-white">
@@ -42,19 +68,41 @@ function IndividualView() {
                 Stock disponible: {data?.stock}
               </p>
               <div className="flex gap-4">
-                <button className="w-16 py-2 rounded-full bg-gray-200 hover:bg-gray-300 focus:outline-none">
+                <button
+                  className="w-16 py-2 rounded-full bg-gray-200 hover:bg-gray-300 focus:bg-fuchsia-700"
+                  onClick={() => addSize("S")}
+                >
                   <span className="text-center">S</span>
                 </button>
-                <button className="w-16 py-2 rounded-full bg-gray-200 hover:bg-gray-300 focus:outline-none">
+                <button
+                  className="w-16 py-2 rounded-full bg-gray-200 hover:bg-gray-300 focus:bg-fuchsia-700"
+                  onClick={() => addSize("M")}
+                >
                   <span className="text-center">M</span>
                 </button>
-                <button className="w-16 py-2 rounded-full bg-gray-200 hover:bg-gray-300 focus:outline-none">
+                <button
+                  className="w-16 py-2 rounded-full bg-gray-200 hover:bg-gray-300 focus:bg-fuchsia-700"
+                  onClick={() => addSize("L")}
+                >
                   <span className="text-center">L</span>
                 </button>
-                <button className="w-16 py-2 rounded-full bg-gray-200 hover:bg-gray-300 focus:outline-none">
+                <button
+                  className="w-16 py-2 rounded-full bg-gray-200 hover:bg-gray-300 focus:bg-fuchsia-700"
+                  onClick={() => addSize("XL")}
+                >
                   <span className="text-center">XL</span>
                 </button>
               </div>
+              <div className="flex items-center border-b py-2 mt-5">
+                  <input
+                    className="appearance-none bg-transparent border-none w-full text-white mr-3 py-1 px-2 leading-tight focus:outline-none"
+                    type="text"
+                    placeholder="Insert URL"
+                    aria-label="Full name"
+                    value={url}
+                    onChange={addUrl}
+                  ></input>
+                </div>
               <p className="text-lg font-semibold leading-10 text-white mt-5">
                 Colores
               </p>
@@ -63,14 +111,17 @@ function IndividualView() {
                   <button
                     className="w-8 h-8 rounded-full bg-white border-2 border-gray-200 focus:outline-none"
                     title="White"
+                    onClick={() => addColor("white")}
                   ></button>
                   <button
                     className="w-8 h-8 rounded-full bg-red-500 focus:outline-none"
                     title="Red"
+                    onClick={() => addColor("red")}
                   ></button>
                   <button
                     className="w-8 h-8 rounded-full bg-blue-300 focus:outline-none"
                     title="Light Blue"
+                    onClick={() => addColor("blue")}
                   ></button>
                 </div>
               </div>
@@ -79,8 +130,15 @@ function IndividualView() {
               <button
                 href="#"
                 className="rounded-md bg-fuchsia-500 px-3.5 py-2.5 mb-5 text-sm font-semibold text-white  shadow-sm hover:bg-fuchsia-700 "
+                onClick={createShirtCustom}
               >
-                Agregar al carrito
+                CUSTOMIZAR
+              </button>
+              <button
+                href="#"
+                className="rounded-md bg-fuchsia-500 px-3.5 py-2.5 mb-5 text-sm font-semibold text-white  shadow-sm hover:bg-fuchsia-700 "
+              >
+                ADD TO CART
               </button>
             </div>
           </div>

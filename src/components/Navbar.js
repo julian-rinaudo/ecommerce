@@ -17,6 +17,7 @@ function classNames(...classes) {
 export default function Navbar() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
+
   const signIn = { name: "Sign In", href: "/login", current: true };
 
   const handleSignout = () => {
