@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { LockClosedIcon } from "@heroicons/react/20/solid";
+import { setUser } from "../state/user";
+import axios from "axios";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -10,6 +13,7 @@ export default function Login() {
   };
 
   const [form, setform] = useState(initialState);
+  const dispatch = useDispatch();
 
   const handleChange = (evt) => {
     const value = evt.target.value;
@@ -19,9 +23,15 @@ export default function Login() {
     });
   };
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
-    console.log(form);
+    const user = await axios
+      .post("/api/user/login", { ...form })
+      .then((res) => res.data)
+      .then((user) => user);
+    dispatch(setUser(user));
+    !user ? alert("Login Failed") : alert(`Logged in as  ${user.first_name}`);
+    // .catch(() => ;
     navigate("/");
   };
   return (
@@ -43,16 +53,17 @@ export default function Login() {
               alt="Your Company"
             />
             <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
-              Sign in to your account
+              Login to your account
             </h2>
-            <p className="mt-2 text-center text-sm text-gray-600">
+            <div className="mt-2 gap-1 flex justify-center items-center">
+              <p className=" text-sm text-gray-600">Or</p>
               <Link
                 to="/register"
                 className="font-medium text-indigo-600 hover:text-indigo-500"
               >
-                Or Create an Account
+                Create an Account
               </Link>
-            </p>
+            </div>
           </div>
           <form
             className="mt-8 space-y-6"
@@ -73,7 +84,7 @@ export default function Login() {
                   autoComplete="email"
                   value={form.email}
                   required
-                  className="relative block w-full rounded-t-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="relative block mb-2 w-full rounded-t-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   placeholder="Email address"
                   onChange={handleChange}
                 />
@@ -133,7 +144,7 @@ export default function Login() {
                     aria-hidden="true"
                   />
                 </span>
-                Sign in
+                Login
               </button>
             </div>
           </form>
