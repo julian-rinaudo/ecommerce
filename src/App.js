@@ -6,10 +6,12 @@ import Navbar from "./components/Navbar";
 import Details from "./commons/IndividualView";
 import "./App.css";
 import Body from "./components/Home/Body_Home/Body";
+import Shopping from "./components/Shopping/Shopping";
 
 function App() {
   const [user, setUser] = useState({});
   return (
+
     <>
       <Navbar user={user} />
       <Routes>
@@ -17,8 +19,10 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login setUser={setUser} />} />
         <Route path="/product/:style" element={<Details />} />
+           <Route path="/shopping" element={<Shopping/>}/>
       </Routes>
     </>
+
   );
 }
 
