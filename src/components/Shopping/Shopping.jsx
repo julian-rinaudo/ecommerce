@@ -1,6 +1,6 @@
 import React,{useEffect, useState} from 'react'
-import {useSelector, useDispatch} from "react-redux";
-import { getShoppingApi } from '../../store/shopping/ShoppingStore';
+import {useDispatch} from "react-redux";
+import { getShoppingApi } from '../../state/ShoppingStore';
 import Card from '../Home/Body_Home/Card';
 
 let arrClon = [] // arreglo clon del estado "products"
