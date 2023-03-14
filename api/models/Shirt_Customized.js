@@ -9,8 +9,13 @@ Shirt_Customize.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    quantity: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 1,
+    },
   },
-  { sequelize: db, modelName: "shirt_customize" , timestamps: false }
+  { sequelize: db, modelName: "shirt_customize", timestamps: false }
 );
 
 module.exports = Shirt_Customize;
