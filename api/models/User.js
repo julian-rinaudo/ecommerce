@@ -17,7 +17,7 @@ class User extends Model {
 
 User.init(
   {
-    isAdmin: {
+    is_admin: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
     },

@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { FakeData } from "../../components/Home/Body_Home/FakeData";
+import { FakeData } from "../components/Home/Body_Home/FakeData";
 //import axios from "axios";
 
 const menuInitial = {

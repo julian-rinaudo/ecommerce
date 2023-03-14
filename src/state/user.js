@@ -7,16 +7,16 @@ const initialState = {
   last_name: "",
   email: "",
   password: "",
+  is_admin: false,
 };
 
-const usersReducer = createReducer(initialState, {
-  [setUser]: (state, action) => {
-    console.log("prueba");
+const usersReducer = createReducer(initialState, (builder) => {
+  builder.addCase(setUser, (state, action) => {
     return {
       ...state,
       ...action.payload,
     };
-  },
+  });
 });
 
 export default usersReducer;
