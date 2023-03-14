@@ -2,6 +2,18 @@ const express = require("express");
 const { User, Shirt_Model } = require("../models");
 const adminRouter = express.Router();
 
+adminRouter.get("/:id", (req, res) => {
+  Shirt_Model.findOne({
+    where: {
+      id: req.params.id,
+    },
+  })
+    .then((product) => {
+      res.send(product);
+    })
+    .catch((error) => console.log("Error desde productRouter", error));
+});
+
 adminRouter.post("/", (req, res) => {
   Shirt_Model.bulkCreate(req.body)
     .then((product) => res.status(201).send(product))

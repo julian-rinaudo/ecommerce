@@ -8,6 +8,8 @@ import "./App.css";
 import Body from "./components/Home/Body_Home/Body";
 import Shopping from "./components/Shopping/Shopping";
 import Users from "./components/Users";
+import Products from "./components/Products";
+import ProductEdit from "./components/ProductEdit";
 
 function App() {
   // const [user, setUser] = useState({});
@@ -21,6 +23,8 @@ function App() {
         <Route path="/product/:style" element={<Details />} />
         <Route path="/shopping" element={<Shopping />} />
         <Route path="/users" element={<Users />} />
+        <Route path="/products" element={<Products />} />
+        <Route path="/products/:id" element={<ProductEdit />} />
       </Routes>
     </>
   );
