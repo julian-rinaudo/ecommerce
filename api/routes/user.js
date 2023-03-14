@@ -2,9 +2,15 @@ const express = require("express");
 const { User, Shirt_Model } = require("../models");
 const userRouter = express.Router();
 
+userRouter.get("/", (req, res) => {
+  User.findAll({ where: { is_admin: false } }).then((result) =>
+    res.send(result)
+  );
+});
+
 userRouter.post("/register", (req, res) => {
-  const { first_name, last_name, email, password } = req.body;
-  User.create({ first_name, last_name, email, password })
+  const { first_name, last_name, email, password, is_admin } = req.body;
+  User.create({ first_name, last_name, email, password, is_admin })
     .then((user) => res.status(201).send(user))
     .catch((err) => console.log("error desde userRouter", err));
 });

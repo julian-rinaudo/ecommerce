@@ -10,6 +10,7 @@ export default function Register() {
     last_name: "",
     email: "",
     password: "",
+    is_admin: false,
   };
   const [form, setform] = useState(initialState);
 
@@ -27,7 +28,7 @@ export default function Register() {
       .post("/api/user/register", { ...form })
       .then((res) => res.data)
       .then((user) => {
-        alert(`New user created ${user.username}`);
+        alert(`New user ${user.first_name} ${user.last_name} created`);
       })
       //   .then(() => navigate("/"))
       .catch(() => alert("Signup Failed"));
@@ -56,15 +57,13 @@ export default function Register() {
               Register your account
             </h2>
             <div className="flex justify-center items-center gap-1 mt-2">
-              <p className=" text-center text-sm text-gray-600">
-                Or
-              </p>
+              <p className=" text-center text-sm text-gray-600">Or</p>
               <Link
-                  to="/login"
-                  className="font-medium text-indigo-600 hover:text-indigo-500"
-                >
-                  Login
-                </Link>
+                to="/login"
+                className="font-medium text-indigo-600 hover:text-indigo-500"
+              >
+                Login
+              </Link>
             </div>
           </div>
           <form
