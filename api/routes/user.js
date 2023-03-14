@@ -62,13 +62,22 @@ userRouter.put("/:id", (req, res) => {
 });
 
 userRouter.put("/", (req, res) => {
-  console.log(req.body);
   User.update(req.body, {
     where: {
       email: req.body.email,
     },
   })
     .then((user) => res.send(user))
+    .catch((err) => console.log("error desde userEditRouter", err));
+});
+
+userRouter.delete("/", (req, res) => {
+  User.destroy({
+    where: {
+      email: req.headers.email,
+    },
+  })
+    .then(() => res.sendStatus(202))
     .catch((err) => console.log("error desde userEditRouter", err));
 });
 

@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router";
 import axios from "axios";
 
 const Users = () => {
+  const navigate = useNavigate();
   const user = useSelector((state) => state.user);
   const [data, setData] = useState([]);
   if (!user.is_admin) <h1>Permission Denied</h1>;
@@ -36,6 +38,28 @@ const Users = () => {
       })
       .catch((error) => console.log(error));
   };
+
+  const handleDelete = (e) => {
+    const first_name =
+      e.target.parentNode.parentNode.parentNode.getElementsByTagName("th")[0]
+        .textContent;
+    const email =
+      e.target.parentNode.parentNode.parentNode.getElementsByTagName("td")[1]
+        .textContent;
+    axios
+      .delete("http://localhost:3001/api/user", {
+        headers: {
+          email: email,
+        },
+      })
+      .then((res) => res.data)
+      .then(() => {
+        alert(`User ${first_name} has been deleted from Database`);
+        window.location.assign("http://localhost:3000/users");
+      })
+      .catch((error) => console.log(error));
+  };
+
   return (
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
       <div class="pb-4 bg-white dark:bg-gray-900">
@@ -81,6 +105,9 @@ const Users = () => {
             <th scope="col" class="px-6 py-3">
               Admin
             </th>
+            <th scope="col" class="px-6 py-3">
+              Delete
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -117,6 +144,16 @@ const Users = () => {
                     <label for="checkbox-table-search-1" class="sr-only">
                       checkbox
                     </label>
+                  </div>
+                </td>
+                <td class="w-4 p-4">
+                  <div class="flex items-center">
+                    <img
+                      onClick={handleDelete}
+                      src="https://cdn-icons-png.flaticon.com/128/542/542724.png"
+                      alt="trash-bin"
+                      style={{ cursor: "pointer", maxWidth: "15px" }}
+                    />
                   </div>
                 </td>
               </tr>
