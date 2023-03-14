@@ -4,7 +4,6 @@ import axios from "axios";
 
 const Users = () => {
   const user = useSelector((state) => state.user);
-  console.log(user);
   const [data, setData] = useState([]);
   if (!user.is_admin) <h1>Permission Denied</h1>;
 
@@ -15,17 +14,27 @@ const Users = () => {
       .then((list) => setData(list));
   }, []);
   const handleClick = (e) => {
-    const state = e.target.checked;
-    const id =
-      e.target.parentNode.parentNode.getElementsByTagName("td")[0].textContent;
-
-    const body = { id: id, isCompleted: state };
-    console.log(body);
-    // axios
-    //   .put("http://localhost:1337/api/", body)
-    //   .then((res) => res.data)
-    //   .then(() => navigate("/"))
-    //   .catch((error) => console.log(error));
+    const body = {
+      first_name:
+        e.target.parentNode.parentNode.parentNode.getElementsByTagName("th")[0]
+          .textContent,
+      last_name:
+        e.target.parentNode.parentNode.parentNode.getElementsByTagName("td")[0]
+          .textContent,
+      email:
+        e.target.parentNode.parentNode.parentNode.getElementsByTagName("td")[1]
+          .textContent,
+      is_admin: e.target.checked,
+    };
+    axios
+      .put("http://localhost:3001/api/user", body)
+      .then((res) => res.data)
+      .then(() => {
+        body.is_admin
+          ? alert(`Set user ${body.first_name} to admin`)
+          : alert(`${body.first_name} is no longer an admin`);
+      })
+      .catch((error) => console.log(error));
   };
   return (
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
@@ -88,13 +97,23 @@ const Users = () => {
                 <td class="px-6 py-4">{each.email}</td>
                 <td class="w-4 p-4">
                   <div class="flex items-center">
-                    <input
-                      id="checkbox-table-search-1"
-                      type="checkbox"
-                      class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                      onClick={handleClick}
-                      checked={each.is_admin ? "checked" : ""}
-                    />
+                    {each.is_admin ? (
+                      <input
+                        id="checkbox-table-search-1"
+                        type="checkbox"
+                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                        onClick={handleClick}
+                        checked="checked"
+                      />
+                    ) : (
+                      <input
+                        id="checkbox-table-search-1"
+                        type="checkbox"
+                        class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                        onClick={handleClick}
+                      />
+                    )}
+
                     <label for="checkbox-table-search-1" class="sr-only">
                       checkbox
                     </label>

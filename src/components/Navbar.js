@@ -18,6 +18,7 @@ function classNames(...classes) {
 export default function Navbar() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
+  console.log(user);
 
   const signIn = { name: "Sign In", href: "/login", current: true };
 
@@ -84,14 +85,16 @@ export default function Navbar() {
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                <button
-                  type="button"
-                  className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                >
-                  <span className="sr-only">View cart</span>
-                  <ShoppingCartIcon className="h-6 w-6" aria-hidden="true" />
-                </button>
+                <Link to="/shopping">
+                  <button
+                    type="button"
+                    className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                  >
+                    <span className="sr-only">View cart</span>
 
+                    <ShoppingCartIcon className="h-6 w-6" aria-hidden="true" />
+                  </button>
+                </Link>
                 {/* Profile dropdown */}
                 {!user.first_name ? (
                   <a

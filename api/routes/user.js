@@ -2,7 +2,6 @@ const express = require("express");
 const { User, Shirt_Model } = require("../models");
 const userRouter = express.Router();
 
-
 const { generateToken } = require("../config/tokens");
 
 userRouter.get("/", (req, res) => {
@@ -10,7 +9,6 @@ userRouter.get("/", (req, res) => {
     res.send(result)
   );
 });
-
 
 userRouter.post("/register", (req, res) => {
   const { first_name, last_name, email, password, is_admin } = req.body;
@@ -30,6 +28,7 @@ userRouter.post("/login", (req, res) => {
         email: user.email,
         first_name: user.first_name,
         last_name: user.last_name,
+        is_admin: user.is_admin,
       };
 
       const token = generateToken(payload);
@@ -58,6 +57,17 @@ userRouter.put("/:id", (req, res) => {
       plain: true,
     }
   )
+    .then((user) => res.send(user))
+    .catch((err) => console.log("error desde userEditRouter", err));
+});
+
+userRouter.put("/", (req, res) => {
+  console.log(req.body);
+  User.update(req.body, {
+    where: {
+      email: req.body.email,
+    },
+  })
     .then((user) => res.send(user))
     .catch((err) => console.log("error desde userEditRouter", err));
 });
