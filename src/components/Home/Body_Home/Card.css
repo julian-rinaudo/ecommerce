@@ -1,9 +1,10 @@
 #Card-Grid{
     scale: 1;
     transition: scale .5s ease;
+    height:85vh;
 }
 
 #Card-Grid:hover{
-    scale: 1.1;
+    scale: 1.05;
     transition: scale .5s ease;
 }

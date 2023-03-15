@@ -9,7 +9,7 @@ const menuInitial = {
   error: null
 };
 
-export const getShoppingApi = createAsyncThunk("slices/getSlicesApi", async () => {
+export const getShoppingApi = createAsyncThunk("shopping/getShoppingApi", async () => {
   const response = await FakeData;
   return response;
 });

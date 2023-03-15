@@ -1,0 +1,16 @@
+.Container-Product-Inventory{
+    display: flex;
+    width: 90%;
+    justify-content: space-between;
+    margin: 3rem auto;
+    height: 10vh;
+    align-items: center;
+    border: 1px solid black;
+    padding: 0 1rem;
+}
+
+.Container-Buttons-Inventory{
+    width: 20%;
+    display: flex;
+    justify-content: space-evenly;
+}

@@ -16,7 +16,8 @@ const Shopping = () => {
 
     const montoTotal = (array) => { // Actualiza el monto total del carrito
         array.map(product=> {
-            let precioSuma = precioContext += (product.precio * product.cantidad) 
+            let cantidad = product.cantidad || 1
+            let precioSuma = precioContext += (product.price * cantidad) 
             setprecioFinal(precioSuma)
         })
     }
@@ -36,7 +37,7 @@ const Shopping = () => {
     const eliminarProducto = (el, cantidad) => { // Elimina un producto del carrito
 
         let cantidadProduct = cantidad || 1,
-            precio = el.precio,
+            precio = el.price,
             precioTotal = precioFinal,
             id = el.id,
             precioResultado = cantidadProduct * precio // Multiplica por la cantidad de productos para generar un precio total

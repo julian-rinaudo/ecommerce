@@ -8,6 +8,7 @@ import "./App.css";
 import Body from "./components/Home/Body_Home/Body";
 import Shopping from "./components/Shopping/Shopping";
 import Users from "./components/Users";
+import Inventory from "./components/Inventory/Inventory";
 
 function App() {
   // const [user, setUser] = useState({});
@@ -20,6 +21,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/product/:style" element={<Details />} />
         <Route path="/shopping" element={<Shopping />} />
+        <Route path="/inventory" element={<Inventory/>}/>
         <Route path="/users" element={<Users />} />
       </Routes>
     </>

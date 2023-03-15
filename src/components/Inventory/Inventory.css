@@ -1,0 +1,11 @@
+.Container-Inventory-Table{
+    display: flex;
+    width: 90%;
+    justify-content: space-between;
+    margin: 3rem auto;
+    height: 5vh;
+    align-items: center;
+    border: 1px solid black;
+    padding: 0 1rem;
+    padding-right: 25rem;
+}
