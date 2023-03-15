@@ -2,6 +2,14 @@ const express = require("express");
 const { User, Shirt_Model, Shirt_Customize } = require("../models");
 const productsRouter = express.Router();
 
+productsRouter.get("/", (req, res) => {
+  Shirt_Model.findAll()
+    .then((products) => {
+      res.send(products);
+    })
+    .catch((error) => console.log("Error desde productRouter", error));
+});
+
 productsRouter.get("/styles", (req, res) => {
   Shirt_Model.findAll({
     where: {

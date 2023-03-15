@@ -2,15 +2,14 @@ const express = require("express");
 const { User, Shirt_Model } = require("../models");
 const userRouter = express.Router();
 
-
 const { generateToken } = require("../config/tokens");
+const { validateAuth } = require("../middlewares/auth");
 
 userRouter.get("/", (req, res) => {
   User.findAll({ where: { is_admin: false } }).then((result) =>
     res.send(result)
   );
 });
-
 
 userRouter.post("/register", (req, res) => {
 
@@ -32,6 +31,7 @@ userRouter.post("/login", (req, res) => {
         email: user.email,
         first_name: user.first_name,
         last_name: user.last_name,
+        is_admin: user.is_admin,
       };
 
       const token = generateToken(payload);
@@ -45,6 +45,7 @@ userRouter.post("/login", (req, res) => {
 });
 
 userRouter.post("/logout", (req, res) => {
+  console.log("PRUEBA de BACK", req);
   res.clearCookie("token");
 
   res.sendStatus(204);
@@ -65,6 +66,28 @@ userRouter.put("/:id", (req, res) => {
     .catch((err) => console.log("error desde userEditRouter", err));
 });
 
-userRouter.get("/me", (req, res) => {});
+userRouter.put("/", (req, res) => {
+  User.update(req.body, {
+    where: {
+      email: req.body.email,
+    },
+  })
+    .then((user) => res.send(user))
+    .catch((err) => console.log("error desde userEditRouter", err));
+});
+
+userRouter.delete("/", (req, res) => {
+  User.destroy({
+    where: {
+      email: req.headers.email,
+    },
+  })
+    .then(() => res.sendStatus(202))
+    .catch((err) => console.log("error desde userEditRouter", err));
+});
+
+userRouter.get("/me", validateAuth, (req, res) => {
+  res.send(req.user);
+});
 
 module.exports = userRouter;

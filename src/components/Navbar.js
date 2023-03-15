@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import {
   Bars3Icon,
@@ -8,6 +8,7 @@ import {
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "../state/user";
+import axios from "axios";
 
 const navigation = [{ name: "Home", href: "/", current: true }];
 
@@ -18,10 +19,19 @@ function classNames(...classes) {
 export default function Navbar() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
+  console.log(user);
 
   const signIn = { name: "Sign In", href: "/login", current: true };
 
+  useEffect(() => {
+    axios
+      .get("http://localhost:3000/api/user/me")
+      .then((res) => res.data)
+      .then((user) => dispatch(setUser(user)));
+  }, []);
+
   const handleSignout = () => {
+    axios.post("http://localhost:3000/api/user/logout").then((res) => res.data);
     dispatch(
       setUser({
         first_name: "",
@@ -84,14 +94,16 @@ export default function Navbar() {
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                <button
-                  type="button"
-                  className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                >
-                  <span className="sr-only">View cart</span>
-                  <ShoppingCartIcon className="h-6 w-6" aria-hidden="true" />
-                </button>
+                <Link to="/shopping">
+                  <button
+                    type="button"
+                    className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                  >
+                    <span className="sr-only">View cart</span>
 
+                    <ShoppingCartIcon className="h-6 w-6" aria-hidden="true" />
+                  </button>
+                </Link>
                 {/* Profile dropdown */}
                 {!user.first_name ? (
                   <a
@@ -132,7 +144,7 @@ export default function Navbar() {
                         <Menu.Item>
                           {({ active }) => (
                             <Link
-                              to={user.is_admin ? "" : "#"}
+                              to={user.is_admin ? "/products" : "#"}
                               className={classNames(
                                 active ? "bg-gray-100" : "",
                                 "block px-4 py-2 text-sm text-gray-700"
