@@ -5,7 +5,7 @@ const Cart = require("./Cart");
 
 // User and Cart relationship
 Cart.belongsTo(User);
-User.hasOne(Cart);
+User.hasMany(Cart);
 
 // Cart_Item and Cart relationship
 Shirt_Customize.belongsTo(Cart);

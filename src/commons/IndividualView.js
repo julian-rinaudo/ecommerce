@@ -25,18 +25,20 @@ function IndividualView() {
     setSize(size);
   };
   const addUrl = (e) => {
-    const url = e.target.value
-    setUrl(url)
+    const url = e.target.value;
+    setUrl(url);
   };
 
-  const createShirtCustom = () => {
+  const addToCart = () => {
     const { id } = userLoged;
-    axios.post(`/api/products/shirtCustomized/${id}`, {
+    axios.post(`/api/cart/add/${id}`, {
       data,
       url,
+      quantity: 1,
     });
-    console.log(data);
   };
+  console.log("SOY ID", userLoged);
+  console.log(data);
 
   return (
     <div className="bg-white">
@@ -65,7 +67,8 @@ function IndividualView() {
                 Talles
               </p>
               <p className="text-sm font-semibold text-white pb-4">
-                Stock disponible: {data?.stock}
+                Stock disponible de {data?.color} talle {data?.size}:{" "}
+                {data?.stock}
               </p>
               <div className="flex gap-4">
                 <button
@@ -94,15 +97,15 @@ function IndividualView() {
                 </button>
               </div>
               <div className="flex items-center border-b py-2 mt-5">
-                  <input
-                    className="appearance-none bg-transparent border-none w-full text-white mr-3 py-1 px-2 leading-tight focus:outline-none"
-                    type="text"
-                    placeholder="Insert URL"
-                    aria-label="Full name"
-                    value={url}
-                    onChange={addUrl}
-                  ></input>
-                </div>
+                <input
+                  className="appearance-none bg-transparent border-none w-full text-white mr-3 py-1 px-2 leading-tight focus:outline-none"
+                  type="text"
+                  placeholder="Insert URL"
+                  aria-label="Full name"
+                  value={url}
+                  onChange={addUrl}
+                ></input>
+              </div>
               <p className="text-lg font-semibold leading-10 text-white mt-5">
                 Colores
               </p>
@@ -130,13 +133,7 @@ function IndividualView() {
               <button
                 href="#"
                 className="rounded-md bg-fuchsia-500 px-3.5 py-2.5 mb-5 text-sm font-semibold text-white  shadow-sm hover:bg-fuchsia-700 "
-                onClick={createShirtCustom}
-              >
-                CUSTOMIZAR
-              </button>
-              <button
-                href="#"
-                className="rounded-md bg-fuchsia-500 px-3.5 py-2.5 mb-5 text-sm font-semibold text-white  shadow-sm hover:bg-fuchsia-700 "
+                onClick={addToCart}
               >
                 ADD TO CART
               </button>
