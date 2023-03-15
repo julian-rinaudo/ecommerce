@@ -1,4 +1,39 @@
 const express = require("express");
+const userControllers = require("../controllers/userControllers");
+const { validateAuth } = require("../middlewares/auth");
+
+
+const userRouter = express.Router();
+
+userRouter.get("/", userControllers.getUsers);
+
+userRouter.post("/register", userControllers.registerUser);
+
+userRouter.post("/login", userControllers.loginUser);
+
+userRouter.post("/logout", userControllers.logoutUser);
+
+userRouter.put("/:id", userControllers.updateUser);
+
+userRouter.put("/", userControllers.updateUserByEmail);
+
+userRouter.delete("/", userControllers.deleteUser);
+
+//userRouter.get("/me", userControllers.getMe);
+// tuve que dejar la ruta me en este  contexto y no en controllers
+// porque era la única que se rompía
+
+userRouter.get("/me", validateAuth, (req, res) => {
+  res.send(req.user);
+});
+
+module.exports = userRouter;
+
+
+//////////////////////////////////////////////////////////////////
+
+/* 
+const express = require("express");
 const { User, Shirt_Model } = require("../models");
 const userRouter = express.Router();
 
@@ -91,3 +126,6 @@ userRouter.get("/me", validateAuth, (req, res) => {
 });
 
 module.exports = userRouter;
+
+
+ */
