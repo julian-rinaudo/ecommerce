@@ -5,7 +5,37 @@ import { LockClosedIcon } from "@heroicons/react/20/solid";
 import { setUser } from "../state/user";
 import axios from "axios";
 
+import { gapi } from "gapi-script";
+import GoogleLogin from "react-google-login";
+
 export default function Login() {
+  // EN ESTE ESPACIO ESTO PROBANDO EL LOGGEO CON GOOGLE
+
+  const clientID =
+    "758851389985-mosr6sem8j6p2omn7epir1he1ajcoshh.apps.googleusercontent.com";
+  const [user, setUser] = useState({});
+  const [loggeIn, setLoggetInfo] = useState(false);
+
+  const onSuccess = (response) => {
+    setUser(response.profileObj);
+    document.getElementsByClassName("btn").hidden = true;
+  };
+  const onFailure = (response) => {
+    console.log("Something went wrong");
+  };
+  const handleLogout = () => {
+    setUser({});
+  };
+  useEffect(() => {
+    function start() {
+      gapi.client.init({
+        clientId: clientID,
+      });
+    }
+    gapi.load("client:auth2", start);
+  });
+  // hasta aca llega lo que implemente para logeo con google.
+
   const navigate = useNavigate();
   const initialState = {
     email: "",
@@ -148,6 +178,18 @@ export default function Login() {
               </button>
             </div>
           </form>
+          <h3 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
+            or login with
+          </h3>
+          <div className="btn text-center font-bold">
+            <GoogleLogin
+              clientId={clientID}
+              onSuccess={onSuccess}
+              onFailure={onFailure}
+              buttonText="GOOGLE"
+              cookiePolicy={"single_host_origin"}
+            />
+          </div>
         </div>
       </div>
     </>
