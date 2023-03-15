@@ -15,6 +15,7 @@ adminRouter.get("/:id", (req, res) => {
 });
 
 adminRouter.post("/", (req, res) => {
+  console.log(req.body);
   Shirt_Model.bulkCreate(req.body)
     .then((product) => res.status(201).send(product))
     .catch((err) => console.log("error desde productRouter", err));
