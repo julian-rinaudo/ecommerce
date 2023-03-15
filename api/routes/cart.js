@@ -79,7 +79,11 @@ cartRouter.get("/:id", (req, res) => {
   const { id } = req.params;
   Cart.findOne({
     where: { userId: id, state: "active" },
-    include: { model: Shirt_Customize, as: "item" },
+    include: {
+      model: Shirt_Customize,
+      as: "item",
+      include: { model: Shirt_Model, as: "model" },
+    },
   })
     .then((foundCartWithItems) => {
       res.status(200).send(foundCartWithItems);
@@ -89,30 +93,23 @@ cartRouter.get("/:id", (req, res) => {
 
 // mostrar items de carritos anteriores
 
-cartRouter.get("/history/:id", (req,res)=>{
-    const { id } = req.params;
-    Cart.findAll({
-        where: { userId: id, state: "fulfilled" },
-        include: { model: Shirt_Customize, as: "item" },
-      })
-      .then((foundCarts) => {
-        res.status(200).send(foundCarts);
-      })
-      .catch((err) => console.log(err, "error finding fulfilled carts"));
-})
+cartRouter.get("/history/:id", (req, res) => {
+  const { id } = req.params;
+  Cart.findAll({
+    where: { userId: id, state: "fulfilled" },
+    include: {
+      model: Shirt_Customize,
+      as: "item",
+      include: { model: Shirt_Model, as: "model" },
+    },
+  })
+    .then((foundCarts) => {
+      res.status(200).send(foundCarts);
+    })
+    .catch((err) => console.log(err, "error finding fulfilled carts"));
+});
 
 module.exports = cartRouter;
-
-// checkoutRouter.get("/:id", (req, res) => {
-//   const { id } = req.params;
-//   Cart.findOne({
-//     includes:{
-//       model:
-//     }
-//   },{ where: { id } })
-//     .then((cart) => res.send(cart))
-//     .catch((err) => console.log("error desde checkoutRouter", err));
-// });
 
 // Cart.findOne({where:{
 //     state: "active",
