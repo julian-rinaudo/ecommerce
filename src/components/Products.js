@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import axios from "axios";
 
 const Products = () => {
   const [data, setData] = useState([]);
+  const user = useSelector((state) => state.user);
   useEffect(() => {
     axios
       .get("http://localhost:3001/api/products")
@@ -29,7 +31,7 @@ const Products = () => {
       })
       .catch((error) => console.log(error));
   };
-
+  if (user.is_admin === false) return <h1>Unauthorized</h1>;
   return (
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
       <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">

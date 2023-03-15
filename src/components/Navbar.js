@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import {
   Bars3Icon,
@@ -8,6 +8,7 @@ import {
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "../state/user";
+import axios from "axios";
 
 const navigation = [{ name: "Home", href: "/", current: true }];
 
@@ -22,7 +23,15 @@ export default function Navbar() {
 
   const signIn = { name: "Sign In", href: "/login", current: true };
 
+  useEffect(() => {
+    axios
+      .get("http://localhost:3000/api/user/me")
+      .then((res) => res.data)
+      .then((user) => dispatch(setUser(user)));
+  }, []);
+
   const handleSignout = () => {
+    axios.post("http://localhost:3000/api/user/logout").then((res) => res.data);
     dispatch(
       setUser({
         first_name: "",

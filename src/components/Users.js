@@ -7,7 +7,6 @@ const Users = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
   const [data, setData] = useState([]);
-  if (!user.is_admin) <h1>Permission Denied</h1>;
 
   useEffect(() => {
     axios
@@ -59,7 +58,7 @@ const Users = () => {
       })
       .catch((error) => console.log(error));
   };
-
+  if (!user.is_admin) return <h1>Unauthorized</h1>;
   return (
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
       <div class="pb-4 bg-white dark:bg-gray-900">
