@@ -12,9 +12,6 @@ import Products from "./components/Products";
 import ProductEdit from "./components/ProductEdit";
 import ProductNew from "./components/ProductNew";
 
-import GoogleLogin from "react-google-login";
-import { gapi } from "gapi-script";
-
 function App() {
   // const [user, setUser] = useState({});
   return (
