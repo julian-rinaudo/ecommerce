@@ -3,6 +3,7 @@ const { User, Shirt_Model } = require("../models");
 const userRouter = express.Router();
 
 const { generateToken } = require("../config/tokens");
+const { validateAuth } = require("../middlewares/auth");
 
 userRouter.get("/", (req, res) => {
   User.findAll({ where: { is_admin: false } }).then((result) =>
@@ -81,6 +82,8 @@ userRouter.delete("/", (req, res) => {
     .catch((err) => console.log("error desde userEditRouter", err));
 });
 
-userRouter.get("/me", (req, res) => {});
+userRouter.get("/me", validateAuth, (req, res) => {
+  res.send(req.user);
+});
 
 module.exports = userRouter;
