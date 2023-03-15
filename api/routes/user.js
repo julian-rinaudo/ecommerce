@@ -13,6 +13,7 @@ userRouter.get("/", (req, res) => {
 
 
 userRouter.post("/register", (req, res) => {
+
   const { first_name, last_name, email, password, is_admin } = req.body;
   User.create({ first_name, last_name, email, password, is_admin })
     .then((user) => res.status(201).send(user))
@@ -27,6 +28,7 @@ userRouter.post("/login", (req, res) => {
       if (!isValid) return res.sendStatus(401);
 
       const payload = {
+        id: user.id,
         email: user.email,
         first_name: user.first_name,
         last_name: user.last_name,
@@ -37,6 +39,7 @@ userRouter.post("/login", (req, res) => {
       res.cookie("token", token);
 
       res.send(payload);
+      console.log(payload)
     });
   });
 });

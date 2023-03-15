@@ -8,7 +8,7 @@ function validateAuth(req, res) {
   if (!user) return res.sendStatus(401);
 
   req.user = user;
-
+ 
 }
 
 module.exports = { validateAuth };

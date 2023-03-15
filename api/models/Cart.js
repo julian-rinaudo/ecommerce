@@ -10,6 +10,10 @@ Cart.init(
       allowNull: false,
       defaultValue: 0,
     },
+    state: {
+      type: DataTypes.STRING,
+      defaultValue: "active",
+    },
   },
   { sequelize: db, modelName: "cart" }
 );

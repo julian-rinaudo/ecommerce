@@ -16,12 +16,12 @@ productsRouter.get("/styles", (req, res) => {
 });
 
 productsRouter.get("/styles/:style/:color/:size", (req, res) => {
-  const { style,color,size } = req.params;
+  const { style, color, size } = req.params;
   Shirt_Model.findOne({
     where: {
       color: color,
       style: style,
-      size: size
+      size: size,
     },
   })
     .then((product) => {
@@ -30,18 +30,17 @@ productsRouter.get("/styles/:style/:color/:size", (req, res) => {
     .catch((error) => console.log("Error desde productRouter", error));
 });
 
-productsRouter.post("/shirtCustomized/:id",(req,res) => {
-  const {data,url} = req.body
-  const {id} = req.params;
-  User.findByPk(id)
-  .then(user => {
-     Shirt_Customize.create({urlImage : url})
-     .then(shirtCustom => {
-       shirtCustom.setUser(user.id)
-        shirtCustom.setModel(data.id)
-     })
-     .then(err => console.log('err desde productRouter',err))
-  })
-})
+productsRouter.post("/shirtCustomized/:id", (req, res) => {
+  const { data, url } = req.body;
+  const { id } = req.params;
+  User.findByPk(id).then((user) => {
+    Shirt_Customize.create({ urlImage: url })
+      .then((shirtCustom) => {
+        shirtCustom.setUser(user.id);
+        shirtCustom.setModel(data.id);
+      })
+      .then((err) => console.log("err desde productRouter", err));
+  });
+});
 
 module.exports = productsRouter;
