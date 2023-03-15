@@ -42,6 +42,7 @@ userRouter.post("/login", (req, res) => {
 });
 
 userRouter.post("/logout", (req, res) => {
+  console.log("PRUEBA de BACK", req);
   res.clearCookie("token");
 
   res.sendStatus(204);
