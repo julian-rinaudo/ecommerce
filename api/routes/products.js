@@ -1,16 +1,16 @@
 const express = require("express");
-const router = express.Router();
+const productsRouter = express.Router();
 const productsController = require("../controllers/productsController");
 
-router.get("/", productsController.getProducts);
+productsRouter.get("/", productsController.getProducts);
 
-router.get("/styles", productsController.getProductsByColorAndSize);
+productsRouter.get("/styles", productsController.getProductsByColorAndSize);
 
-router.get("/styles/:style/:color/:size", productsController.getShirtByStyleColorAndSize);
+productsRouter.get("/styles/:style/:color/:size", productsController.getShirtByStyleColorAndSize);
 
-router.post("/shirtCustomized/:id", productsController.createShirtCustomized);
+productsRouter.post("/shirtCustomized/:id", productsController.createShirtCustomized);
 
-module.exports = router;
+module.exports = productsRouter;
  
 
 

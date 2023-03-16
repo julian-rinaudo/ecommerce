@@ -1,4 +1,19 @@
 const express = require("express");
+const adminRouter = express.Router();
+const adminController = require("../controllers/adminController");
+
+// Rutas para administrar productos
+adminRouter.get("/:id", adminController.getProductById);
+adminRouter.post("/", adminController.createProduct);
+adminRouter.put("/:id", adminController.updateProduct);
+adminRouter.delete("/remove/:id", adminController.deleteProductById);
+
+module.exports = adminRouter;
+
+
+
+
+/* const express = require("express");
 const { User, Shirt_Model } = require("../models");
 const adminRouter = express.Router();
 
@@ -38,4 +53,4 @@ adminRouter.delete("/remove/:id", (req, res) => {
     .catch((err) => console.log("error desde productRouter", err));
 });
 
-module.exports = adminRouter;
+module.exports = adminRouter; */
