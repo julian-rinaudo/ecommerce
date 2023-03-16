@@ -10,6 +10,7 @@ import Shopping from "./components/Shopping/Shopping";
 import Users from "./components/Users";
 import Products from "./components/Products";
 import ProductEdit from "./components/ProductEdit";
+import HistoryStore from "./components/HistoryStore/HistoryStore";
 
 function App() {
   // const [user, setUser] = useState({});
@@ -25,6 +26,7 @@ function App() {
         <Route path="/users" element={<Users />} />
         <Route path="/products" element={<Products />} />
         <Route path="/products/:id" element={<ProductEdit />} />
+        <Route path="/historyShop/:id" element={<HistoryStore/>} />
       </Routes>
     </>
   );

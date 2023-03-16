@@ -1,0 +1,65 @@
+.Header-History-Component{
+    display: flex;
+    width: 25%;
+    justify-content: space-around;
+    margin: 2rem 9rem;
+    height: 5vh;
+    align-items: center;
+    background-color: gray;
+    color: white;
+}
+
+.Container-History-Component{
+    cursor: pointer;
+    display: flex;
+    margin-left: 10%;
+    width: 60%;
+    justify-content: space-around;
+    flex-direction: column;
+    border: black 1px solid;
+    margin-bottom: 3%;
+    padding:1rem 0;
+    transform: scale(1);
+    transition: transform .3s ease;
+}
+
+.Container-History-Component:hover{
+    transform: scale(1.05);
+    transition: transform .3s ease;
+}
+
+.Component-State-Total-Created{
+    display: flex;
+    justify-content: space-evenly;
+    width: 40%;
+}
+
+.Container-Table-Product-History{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin: 1rem 0;
+    margin-left: 7%;
+}
+
+.Container-Table-Product-History.active{
+    display: none;
+}
+
+.Info-Product-History{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.Info-Product-History h1{
+    width: 20%;
+}
+
+.Table-Info-Product-History{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.Table-Info-Product-History h1{
+    width: 20%;
+}
