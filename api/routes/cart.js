@@ -22,12 +22,15 @@ cartRouter.post("/add/:id", (req, res) => {
             quantity,
           })
           .then((customizedShirt) => {
-            customizedShirt.setModel(model);
             customizedShirt.setUser(id);
+            customizedShirt.setModel(model).then(() => {
+              cart
+                .calculateTotalCost()
+                .then(() => res.status(201).send("item added to cart"));
+            });
           });
       });
     })
-    .then(() => res.status(201).send("item added to cart"))
     .catch((err) => console.log(err, "error adding to cart"));
 });
 
@@ -40,11 +43,15 @@ cartRouter.delete("/delete/:id/:itemId", (req, res) => {
     .then((cart) => {
       Shirt_Customize.findByPk(itemId).then((foundShirt) => {
         cart.removeItem(foundShirt).then(() => {
-          foundShirt.destroy();
+          foundShirt.destroy().then(() => {
+            cart
+              .calculateTotalCost()
+              .then(() => res.status(200).send("Item removed from cart"));
+          });
         });
       });
     })
-    .then(() => res.status(200).send("Item removed from cart"))
+
     .catch((err) => console.log(err, "error removing from cart"));
 });
 
@@ -54,10 +61,14 @@ cartRouter.put("/edit/:id/:itemId", (req, res) => {
   Cart.findOne({ where: { userId: id, state: "active" } })
     .then((cart) => {
       cart.getItem({ where: { id: itemId } }).then((itemToUpdate) => {
-        itemToUpdate[0].update({ quantity });
+        itemToUpdate[0].update({ quantity }).then(() => {
+          cart
+            .calculateTotalCost()
+            .then(() => res.status(200).send("Item quantity updated"));
+        });
       });
     })
-    .then(() => res.status(200).send("Item quantity updated"))
+
     .catch((err) => console.log(err, "error updating cart"));
 });
 
