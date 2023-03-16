@@ -8,6 +8,8 @@ function IndividualView() {
   const userLoged = useSelector((state) => state.user);
 
   const [data, setData] = useState({});
+  const [colorsAvailable, setColorsAvailable] = useState([]);
+  const [sizesAvailable, setSizesAvailable] = useState([]);
   const [color, setColor] = useState("white");
   const [size, setSize] = useState("M");
   const [url, setUrl] = useState("");
@@ -17,6 +19,15 @@ function IndividualView() {
       setData(res.data)
     );
   }, [style, color, size]);
+
+  useEffect(() => {
+    axios(`/api/products/colors/${style}`).then((res) => {
+      setColorsAvailable(res.data);
+    });
+    axios(`/api/products/sizes/${style}`).then((res) => {
+      setSizesAvailable(res.data);
+    });
+  }, [style]);
 
   const addColor = (color) => {
     setColor(color);
@@ -37,8 +48,6 @@ function IndividualView() {
       quantity: 1,
     });
   };
-  console.log("SOY ID", userLoged);
-  console.log(data);
 
   return (
     <div className="bg-white">
@@ -71,30 +80,14 @@ function IndividualView() {
                 {data?.stock}
               </p>
               <div className="flex gap-4">
-                <button
-                  className="w-16 py-2 rounded-full bg-gray-200 hover:bg-gray-300 focus:bg-fuchsia-700"
-                  onClick={() => addSize("S")}
-                >
-                  <span className="text-center">S</span>
-                </button>
-                <button
-                  className="w-16 py-2 rounded-full bg-gray-200 hover:bg-gray-300 focus:bg-fuchsia-700"
-                  onClick={() => addSize("M")}
-                >
-                  <span className="text-center">M</span>
-                </button>
-                <button
-                  className="w-16 py-2 rounded-full bg-gray-200 hover:bg-gray-300 focus:bg-fuchsia-700"
-                  onClick={() => addSize("L")}
-                >
-                  <span className="text-center">L</span>
-                </button>
-                <button
-                  className="w-16 py-2 rounded-full bg-gray-200 hover:bg-gray-300 focus:bg-fuchsia-700"
-                  onClick={() => addSize("XL")}
-                >
-                  <span className="text-center">XL</span>
-                </button>
+                {sizesAvailable.map((size) => (
+                  <button
+                    className="w-16 py-2 rounded-full bg-gray-200 hover:bg-gray-300 focus:bg-fuchsia-700"
+                    onClick={() => addSize(size)}
+                  >
+                    <span className="text-center">{size}</span>
+                  </button>
+                ))}
               </div>
               <div className="flex items-center border-b py-2 mt-5">
                 <input
@@ -111,21 +104,14 @@ function IndividualView() {
               </p>
               <div className="flex gap-4">
                 <div className="mt-2 flex justify-between gap-2">
-                  <button
-                    className="w-8 h-8 rounded-full bg-white border-2 border-gray-200 focus:outline-none"
-                    title="White"
-                    onClick={() => addColor("white")}
-                  ></button>
-                  <button
-                    className="w-8 h-8 rounded-full bg-red-500 focus:outline-none"
-                    title="Red"
-                    onClick={() => addColor("red")}
-                  ></button>
-                  <button
-                    className="w-8 h-8 rounded-full bg-blue-300 focus:outline-none"
-                    title="Light Blue"
-                    onClick={() => addColor("blue")}
-                  ></button>
+                  {colorsAvailable.map((color) => (
+                    <button
+                      className={`w-8 h-8 rounded-full bg-${
+                        color === "white" ? color : color + "-500"
+                      } border-2 border-gray-200 focus:outline-none`}
+                      onClick={() => addColor(color)}
+                    ></button>
+                  ))}
                 </div>
               </div>
             </div>

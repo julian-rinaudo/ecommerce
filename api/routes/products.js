@@ -6,15 +6,19 @@ router.get("/", productsController.getProducts);
 
 router.get("/styles", productsController.getProductsByColorAndSize);
 
-router.get("/styles/:style/:color/:size", productsController.getShirtByStyleColorAndSize);
+router.get("/colors/:style", productsController.getColorsForModel);
+
+router.get("/sizes/:style", productsController.getSizesForModel);
+
+router.get(
+  "/styles/:style/:color/:size",
+  productsController.getShirtByStyleColorAndSize
+);
 
 router.post("/shirtCustomized/:id", productsController.createShirtCustomized);
 
 module.exports = router;
- 
 
-
- 
 /* const express = require("express");
 const { User, Shirt_Model, Shirt_Customize } = require("../models");
 const productsRouter = express.Router();
