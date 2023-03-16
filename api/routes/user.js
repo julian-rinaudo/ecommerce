@@ -1,23 +1,23 @@
 const express = require("express");
-const userControllers = require("../controllers/userControllers");
+const userController = require("../controllers/userController");
 const { validateAuth } = require("../middlewares/auth");
 
 
 const userRouter = express.Router();
 
-userRouter.get("/", userControllers.getUsers);
+userRouter.get("/", userController.getUsers);
 
-userRouter.post("/register", userControllers.registerUser);
+userRouter.post("/register", userController.registerUser);
 
-userRouter.post("/login", userControllers.loginUser);
+userRouter.post("/login", userController.loginUser);
 
-userRouter.post("/logout", userControllers.logoutUser);
+userRouter.post("/logout", userController.logoutUser);
 
-userRouter.put("/:id", userControllers.updateUser);
+userRouter.put("/:id", userController.updateUser);
 
-userRouter.put("/", userControllers.updateUserByEmail);
+userRouter.put("/", userController.updateUserByEmail);
 
-userRouter.delete("/", userControllers.deleteUser);
+userRouter.delete("/", userController.deleteUser);
 
 //userRouter.get("/me", userControllers.getMe);
 // tuve que dejar la ruta me en este  contexto y no en controllers

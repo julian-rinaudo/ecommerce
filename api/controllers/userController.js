@@ -43,9 +43,7 @@ exports.loginUser = (req, res) => {
 };
 
 exports.logoutUser = (req, res) => {
-    console.log("PRUEBA de BACK", req);
     res.clearCookie("token");
-  
     res.sendStatus(204);
   };
 
