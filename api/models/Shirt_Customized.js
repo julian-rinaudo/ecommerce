@@ -12,7 +12,10 @@ Shirt_Customize.init(
     quantity: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      defaultValue: 1,
+      validate:{
+        min:1,
+        max:6
+      }
     },
   },
   { sequelize: db, modelName: "shirt_customize", timestamps: false }

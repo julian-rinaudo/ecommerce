@@ -47,7 +47,6 @@ userRouter.get("/", (req, res) => {
 });
 
 userRouter.post("/register", (req, res) => {
-
   const { first_name, last_name, email, password, is_admin } = req.body;
   User.create({ first_name, last_name, email, password, is_admin })
     .then((user) => res.status(201).send(user))
@@ -74,13 +73,12 @@ userRouter.post("/login", (req, res) => {
       res.cookie("token", token);
 
       res.send(payload);
-      console.log(payload)
+      console.log(payload);
     });
   });
 });
 
 userRouter.post("/logout", (req, res) => {
-  console.log("PRUEBA de BACK", req);
   res.clearCookie("token");
 
   res.sendStatus(204);

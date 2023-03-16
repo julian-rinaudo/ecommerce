@@ -10,12 +10,16 @@ Shirt_Model.init(
       allowNull: false,
     },
     style: {
-      type: DataTypes.STRING,
+      type: DataTypes.ENUM("tank", "short", "long", "v-neck"),
       allowNull: false,
     },
     price: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      validate:{
+        min: 0,
+        max: 30000,
+      }
     },
     stock: {
       type: DataTypes.INTEGER,
@@ -27,11 +31,11 @@ Shirt_Model.init(
       allowNull: false,
     },
     color: {
-      type: DataTypes.STRING,
+      type: DataTypes.ENUM('white', 'blue', 'red', 'black', 'green'),
       allowNull: false,
     },
     size: {
-      type: DataTypes.STRING,
+      type: DataTypes.ENUM('S', 'M', 'L', 'XL'),
       allowNull: false,
     },
   },
