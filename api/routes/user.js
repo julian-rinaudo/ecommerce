@@ -6,13 +6,10 @@ const { generateToken } = require("../config/tokens");
 const { validateAuth } = require("../middlewares/auth");
 
 userRouter.get("/", (req, res) => {
-  User.findAll({ where: { is_admin: false } }).then((result) =>
-    res.send(result)
-  );
+  User.findAll().then((result) => res.send(result));
 });
 
 userRouter.post("/register", (req, res) => {
-
   const { first_name, last_name, email, password, is_admin } = req.body;
   User.create({ first_name, last_name, email, password, is_admin })
     .then((user) => res.status(201).send(user))
@@ -39,7 +36,7 @@ userRouter.post("/login", (req, res) => {
       res.cookie("token", token);
 
       res.send(payload);
-      console.log(payload)
+      console.log(payload);
     });
   });
 });
