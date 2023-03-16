@@ -41,9 +41,7 @@ const { generateToken } = require("../config/tokens");
 const { validateAuth } = require("../middlewares/auth");
 
 userRouter.get("/", (req, res) => {
-  User.findAll({ where: { is_admin: false } }).then((result) =>
-    res.send(result)
-  );
+  User.findAll().then((result) => res.send(result));
 });
 
 userRouter.post("/register", (req, res) => {
