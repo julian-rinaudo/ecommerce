@@ -6,7 +6,13 @@ productsRouter.get("/", productsController.getProducts);
 
 productsRouter.get("/styles", productsController.getProductsByColorAndSize);
 
+
+productsRouter.get("/colors/:style", productsController.getColorsForModel);
+
+productsRouter.get("/sizes/:style", productsController.getSizesForModel);
+
 productsRouter.get("/styles/:style/:color/:size", productsController.getShirtByStyleColorAndSize);
+
 
 productsRouter.post("/shirtCustomized/:id", productsController.createShirtCustomized);
 
@@ -14,7 +20,7 @@ module.exports = productsRouter;
  
 
 
- 
+
 /* const express = require("express");
 const { User, Shirt_Model, Shirt_Customize } = require("../models");
 const productsRouter = express.Router();
