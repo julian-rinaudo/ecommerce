@@ -2,6 +2,8 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router";
+import PopUp from "./PopUp";
+
 
 function IndividualView() {
   const { style } = useParams();
@@ -13,7 +15,6 @@ function IndividualView() {
   const [color, setColor] = useState("white");
   const [size, setSize] = useState("M");
   const [url, setUrl] = useState("");
-
   useEffect(() => {
     axios(`/api/products/styles/${style}/${color}/${size}`).then((res) =>
       setData(res.data)
@@ -50,12 +51,18 @@ function IndividualView() {
   };
 
   return (
-    <div className="bg-white">
-      <div className="mx-auto max-w-7xl py-20 sm:px-6 sm:py-32 lg:px-6">
-        <div className="relative isolate bg-slate-800 px-6 pt-16 shadow-2xl sm:rounded-3xl sm:px-16 md:pt-24 lg:flex lg:gap-x-20 lg:px- lg:pt-0">
+    <div className="bg-white e">
+      <PopUp 
+      style={style}
+      state={popUp}
+      setState={setPopUp}
+      color={color} 
+      urlImg={url}/>
+      <div className="mx-auto max-w-7xl py-20 sm:px-6 sm:py-32 lg:px-6 ">
+        <div className=" relative isolate bg-slate-800 px-6 pt-16 shadow-2xl sm:rounded-3xl sm:px-16 md:pt-24 lg:flex lg:gap-x-20 lg:px- lg:pt-0">
           <div className="relative mt-16 mb-16">
             <img
-              className="rounded-md h-full w-full"
+              className="rounded-md w-full h-full"
               src={data.image}
               alt="Remera"
             />
@@ -104,6 +111,7 @@ function IndividualView() {
               </p>
               <div className="flex gap-4">
                 <div className="mt-2 flex justify-between gap-2">
+
                   {colorsAvailable.map((color) => (
                     <button
                       className={`w-8 h-8 rounded-full bg-${
@@ -112,6 +120,7 @@ function IndividualView() {
                       onClick={() => addColor(color)}
                     ></button>
                   ))}
+
                 </div>
               </div>
             </div>
@@ -122,6 +131,13 @@ function IndividualView() {
                 onClick={addToCart}
               >
                 ADD TO CART
+              </button>
+              <button
+                href="#"
+                className="rounded-md bg-fuchsia-500 px-3.5 py-2.5 mb-5 text-sm font-semibold text-white  shadow-sm hover:bg-fuchsia-700 "
+                onClick={() => setPopUp(true)}
+              >
+                VIEW CUSTOMIZED
               </button>
             </div>
           </div>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Login from "./components/Login";
 import Register from "./components/Register";
@@ -11,9 +11,9 @@ import Users from "./components/Users";
 import Products from "./components/Products";
 import ProductEdit from "./components/ProductEdit";
 import ProductNew from "./components/ProductNew";
+import Footer from "./components/Footer";
 
 function App() {
-  // const [user, setUser] = useState({});
   return (
     <>
       <Navbar />
@@ -28,6 +28,7 @@ function App() {
         <Route path="/products/:id" element={<ProductEdit />} />
         <Route path="/products/new" element={<ProductNew />} />
       </Routes>
+      <Footer />
     </>
   );
 }

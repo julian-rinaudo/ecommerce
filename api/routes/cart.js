@@ -1,4 +1,27 @@
-const react = require("@heroicons/react");
+const express = require("express");
+const cartController = require("../controllers/cartController");
+
+const cartRouter = express.Router();
+
+cartRouter.post("/add/:id", cartController.addToCart);
+
+cartRouter.delete("/delete/:id/:itemId", cartController.removeFromCart);
+
+cartRouter.put("/edit/:id/:itemId", cartController.updateCartItemQuantity);
+
+cartRouter.put("/checkout/:id", cartController.checkoutCart);
+
+cartRouter.get("/:id", cartController.getActiveCart);
+
+cartRouter.get("/history/:id", cartController.getFulfilledCarts);
+
+module.exports = cartRouter;
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////
+
+/* const react = require("@heroicons/react");
 const { RequestQuote } = require("@mui/icons-material");
 const express = require("express");
 const { Cart, Shirt_Customize, Shirt_Model, User } = require("../models");
@@ -130,3 +153,4 @@ module.exports = cartRouter;
 //         Cart.create({state:"active", userId: id})
 //     }
 //   })
+ */
