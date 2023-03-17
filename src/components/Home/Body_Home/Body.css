@@ -12,3 +12,7 @@
         width: 90%;
     }
 }
+
+h1{
+    text-shadow: -4px 4px 2px rgb(254, 125, 254);
+}
