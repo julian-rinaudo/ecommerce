@@ -7,7 +7,7 @@ import PopUp from "./PopUp";
 function IndividualView() {
   const { style } = useParams();
   const userLoged = useSelector((state) => state.user);
-  const [popUp, setPopUp] = useState(false)
+  const [popUp, setPopUp] = useState(false);
   const [data, setData] = useState({});
   const [colorsAvailable, setColorsAvailable] = useState([]);
   const [sizesAvailable, setSizesAvailable] = useState([]);
@@ -42,13 +42,15 @@ function IndividualView() {
 
   const addToCart = () => {
     const { id } = userLoged;
-    axios.post(`/api/cart/add/${id}`, {
-      data,
-      url,
-      quantity: 1,
-    });
+    axios
+      .post(`/api/cart/add/${id}`, {
+        data,
+        url,
+        quantity: 1,
+      })
+      .then((res) => alert(res.data));
   };
-
+  console.log(data);
   return (
     <div className="bg-white e">
       <PopUp
@@ -63,7 +65,11 @@ function IndividualView() {
           <div className="relative mt-16 mb-16">
             <img
               className="rounded-md w-full h-full"
-              src={data.image}
+              src={
+                data.image
+                  ? data.image
+                  : "https://res.cloudinary.com/teepublic/image/private/s--EIkrN3bK--/t_Resized%20Artwork/c_crop,x_10,y_10/c_fit,w_447/c_crop,g_north_west,h_626,w_470,x_-12,y_0/g_north_west,u_upload:v1462829024:production:blanks:a59x1cgomgu5lprfjlmi,x_-407,y_-325/b_rgb:eeeeee/c_limit,f_auto,h_630,q_90,w_630/v1589046746/production/designs/9975248_0.jpg"
+              }
               alt="Remera"
             />
           </div>
@@ -87,8 +93,9 @@ function IndividualView() {
                 {data?.stock}
               </p>
               <div className="flex gap-4">
-                {sizesAvailable.map((size,i) => (
-                  <button key={i}
+                {sizesAvailable.map((size, i) => (
+                  <button
+                    key={i}
                     className="w-16 py-2 rounded-full bg-gray-200 hover:bg-gray-300 focus:bg-fuchsia-700"
                     onClick={() => addSize(size)}
                   >
@@ -112,7 +119,8 @@ function IndividualView() {
               <div className="flex gap-4">
                 <div className="mt-2 flex justify-between gap-2">
                   {colorsAvailable.map((color, i) => (
-                    <button key={i}
+                    <button
+                      key={i}
                       className={`w-8 h-8 rounded-full bg-${
                         color === "white" ? color : color + "-500"
                       } border-2 border-gray-200 focus:outline-none`}
