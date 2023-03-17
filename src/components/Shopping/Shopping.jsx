@@ -14,37 +14,33 @@ const Shopping = () => {
   const [products, setProducts] = useState([]); // Estado incial del componente shopping
   const [contadorProductos, setcontadorProductos] = useState(0); // Cantidad de productos en el carrito
   const [precioFinal, setprecioFinal] = useState(0); // Precio total del carrito
-  const userLoged = useSelector((state) => state.user);
+  const {email, id} = useSelector((state) => state.user);
+
+
   const montoTotal = (array) => {
     // Actualiza el monto total del carrito
+    console.log(array)
     array.map((product) => {
-      let precioSuma = (precioContext += product.precio * product.cantidad);
-      setprecioFinal(precioSuma);
+      const { quantity } = product,
+          price = product.model.price;
+        let precioSuma = (precioContext += price * quantity);
+        setprecioFinal(precioSuma);
     });
   };
 
-  useEffect(() => {
-    // getShoppingApi es una funcion del componente de redux.
-    dispatch(getShoppingApi()).then((productos) => {
-      setProducts(productos.payload); // actualiza el estado de products con la respuesta a la api
-      setcontadorProductos(productos.payload.length);
-      if (!controller) {
-        // controller evita que se duplique el monto total del carrito haciendo 2 peticiones api
-        controller = true;
-        return montoTotal(productos.payload);
-      }
-    });
-  }, []);
 
   const eliminarProducto = (el, cantidad) => {
     // Elimina un producto del carrito
 
+
     let cantidadProduct = cantidad || 1,
-      precio = el.precio,
+      precio = el.model.price,
       precioTotal = precioFinal,
-      id = el.id,
       precioResultado = cantidadProduct * precio; // Multiplica por la cantidad de productos para generar un precio total
     precioTotal -= precioResultado; // resta el precio total del proucto eliminado del precio total del carrito
+
+    axios.delete(`api/cart/delete/${id}/${el.id}`)
+    .then(res => console.log(res.data))
 
     let newData = products.filter((el) => {
       // filtra el arr del carrito y lo devuelve sin el producto a eliminar
@@ -66,19 +62,18 @@ const Shopping = () => {
   const eliminarUnidad = (el) => {
     // Elimina una unidad de un producto del carrito
     let precioCarrito = precioFinal;
-    let precioProducto = (precioCarrito -= el.precio);
+    let precioProducto = (precioCarrito -= el.model.price);
     setprecioFinal(precioProducto); // devuelve el precioFinal con el valor de la unidad restada
   };
 
   const añadirUnidad = (el) => {
     // Agrega una unidad de un producto del carrito
     let precioCarrito = precioFinal;
-    let precioProducto = (precioCarrito += el.precio);
+    let precioProducto = (precioCarrito += el.model.price);
     setprecioFinal(precioProducto); // devuelve el precioFinal con el valor de la unidad añadida
   };
 
   const buyCart = () => {
-    const { email, id } = userLoged
     axios(`api/sendMail/mailer/${id}`).then((result) => {
       Swal.fire({
         title: result.data,
@@ -97,6 +92,20 @@ const Shopping = () => {
     });
   };
 
+  useEffect(() => {
+    axios.get(`/api/cart/${id}`).then((product) => {
+      console.log(product)
+      setProducts(product.data.item); // actualiza el estado de products con la respuesta a la api
+      setcontadorProductos(product.data.item.length);
+      if (!controller) {
+        // controller evita que se duplique el monto total del carrito haciendo 2 peticiones api
+        controller = true;
+        return montoTotal(product.data.item);
+      }
+    });
+  },[]);
+
+
   return (
     <div className="flex justify-center items-center flex-col">
       <div
@@ -111,6 +120,7 @@ const Shopping = () => {
           products.map((el, index) => (
             <Card
               el={el}
+              state={products.state}
               key={index}
               eliminarUnidad={eliminarUnidad}
               añadirUnidad={añadirUnidad}
