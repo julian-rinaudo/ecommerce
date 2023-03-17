@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "../state/user";
 import axios from "axios";
+import logo from "../shirt.svg";
 
 const navigation = [{ name: "Home", href: "/", current: true }];
 
@@ -19,7 +20,6 @@ function classNames(...classes) {
 export default function Navbar() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
-  console.log(user);
 
   const signIn = { name: "Sign In", href: "/login", current: true };
 
@@ -64,12 +64,14 @@ export default function Navbar() {
                 <div className="flex flex-shrink-0 items-center">
                   <img
                     className="block h-8 w-auto lg:hidden"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                    src={logo}
+                    // src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
                     alt="Your Company"
                   />
                   <img
                     className="hidden h-8 w-auto lg:block"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                    src={logo}
+                    // src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
                     alt="Your Company"
                   />
                 </div>
@@ -126,7 +128,7 @@ export default function Navbar() {
                         <span className="sr-only">Open user menu</span>
                         <img
                           className="h-8 w-8 rounded-full"
-                          src={`https://ui-avatars.com/api/?background=0D8ABC&color=fff&name=${user.first_name}+${user.last_name}`}
+                          src={`https://ui-avatars.com/api/?background=3F0FB7&color=fff&name=${user.first_name}+${user.last_name}`}
                           alt=""
                         />
                       </Menu.Button>

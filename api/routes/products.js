@@ -1,4 +1,21 @@
 const express = require("express");
+const productsRouter = express.Router();
+const productsController = require("../controllers/productsController");
+
+productsRouter.get("/", productsController.getProducts);
+
+productsRouter.get("/styles", productsController.getProductsByColorAndSize);
+
+productsRouter.get("/styles/:style/:color/:size", productsController.getShirtByStyleColorAndSize);
+
+productsRouter.post("/shirtCustomized/:id", productsController.createShirtCustomized);
+
+module.exports = productsRouter;
+ 
+
+
+ 
+/* const express = require("express");
 const { User, Shirt_Model, Shirt_Customize } = require("../models");
 const productsRouter = express.Router();
 
@@ -52,3 +69,5 @@ productsRouter.post("/shirtCustomized/:id", (req, res) => {
 });
 
 module.exports = productsRouter;
+
+  */

@@ -1,4 +1,39 @@
 const express = require("express");
+const userController = require("../controllers/userController");
+const { validateAuth } = require("../middlewares/auth");
+
+
+const userRouter = express.Router();
+
+userRouter.get("/", userController.getUsers);
+
+userRouter.post("/register", userController.registerUser);
+
+userRouter.post("/login", userController.loginUser);
+
+userRouter.post("/logout", userController.logoutUser);
+
+userRouter.put("/:id", userController.updateUser);
+
+userRouter.put("/", userController.updateUserByEmail);
+
+userRouter.delete("/", userController.deleteUser);
+
+//userRouter.get("/me", userControllers.getMe);
+// tuve que dejar la ruta me en este  contexto y no en controllers
+// porque era la única que se rompía
+
+userRouter.get("/me", validateAuth, (req, res) => {
+  res.send(req.user);
+});
+
+module.exports = userRouter;
+
+
+//////////////////////////////////////////////////////////////////
+
+/* 
+const express = require("express");
 const { User, Shirt_Model } = require("../models");
 const userRouter = express.Router();
 
@@ -6,13 +41,10 @@ const { generateToken } = require("../config/tokens");
 const { validateAuth } = require("../middlewares/auth");
 
 userRouter.get("/", (req, res) => {
-  User.findAll({ where: { is_admin: false } }).then((result) =>
-    res.send(result)
-  );
+  User.findAll().then((result) => res.send(result));
 });
 
 userRouter.post("/register", (req, res) => {
-
   const { first_name, last_name, email, password, is_admin } = req.body;
   User.create({ first_name, last_name, email, password, is_admin })
     .then((user) => res.status(201).send(user))
@@ -39,13 +71,12 @@ userRouter.post("/login", (req, res) => {
       res.cookie("token", token);
 
       res.send(payload);
-      console.log(payload)
+      console.log(payload);
     });
   });
 });
 
 userRouter.post("/logout", (req, res) => {
-  console.log("PRUEBA de BACK", req);
   res.clearCookie("token");
 
   res.sendStatus(204);
@@ -91,3 +122,6 @@ userRouter.get("/me", validateAuth, (req, res) => {
 });
 
 module.exports = userRouter;
+
+
+ */
