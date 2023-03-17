@@ -13,9 +13,6 @@ function IndividualView() {
   const [color, setColor] = useState("white");
   const [size, setSize] = useState("M");
   const [url, setUrl] = useState("");
- 
-  
-
   useEffect(() => {
     axios(`/api/products/styles/${style}/${color}/${size}`).then((res) =>
       setData(res.data)
