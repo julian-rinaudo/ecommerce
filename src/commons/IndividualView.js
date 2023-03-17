@@ -4,11 +4,10 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router";
 import PopUp from "./PopUp";
 
-
 function IndividualView() {
   const { style } = useParams();
   const userLoged = useSelector((state) => state.user);
-
+  const [popUp, setPopUp] = useState(false)
   const [data, setData] = useState({});
   const [colorsAvailable, setColorsAvailable] = useState([]);
   const [sizesAvailable, setSizesAvailable] = useState([]);
@@ -52,12 +51,13 @@ function IndividualView() {
 
   return (
     <div className="bg-white e">
-      <PopUp 
-      style={style}
-      state={popUp}
-      setState={setPopUp}
-      color={color} 
-      urlImg={url}/>
+      <PopUp
+        style={style}
+        state={popUp}
+        setState={setPopUp}
+        color={color}
+        urlImg={url}
+      />
       <div className="mx-auto max-w-7xl py-20 sm:px-6 sm:py-32 lg:px-6 ">
         <div className=" relative isolate bg-slate-800 px-6 pt-16 shadow-2xl sm:rounded-3xl sm:px-16 md:pt-24 lg:flex lg:gap-x-20 lg:px- lg:pt-0">
           <div className="relative mt-16 mb-16">
@@ -87,8 +87,8 @@ function IndividualView() {
                 {data?.stock}
               </p>
               <div className="flex gap-4">
-                {sizesAvailable.map((size) => (
-                  <button
+                {sizesAvailable.map((size,i) => (
+                  <button key={i}
                     className="w-16 py-2 rounded-full bg-gray-200 hover:bg-gray-300 focus:bg-fuchsia-700"
                     onClick={() => addSize(size)}
                   >
@@ -111,16 +111,14 @@ function IndividualView() {
               </p>
               <div className="flex gap-4">
                 <div className="mt-2 flex justify-between gap-2">
-
-                  {colorsAvailable.map((color) => (
-                    <button
+                  {colorsAvailable.map((color, i) => (
+                    <button key={i}
                       className={`w-8 h-8 rounded-full bg-${
                         color === "white" ? color : color + "-500"
                       } border-2 border-gray-200 focus:outline-none`}
                       onClick={() => addColor(color)}
                     ></button>
                   ))}
-
                 </div>
               </div>
             </div>
