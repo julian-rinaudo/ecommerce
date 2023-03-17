@@ -2,6 +2,10 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
 import PopUp from "./PopUp";
 
 function IndividualView() {
@@ -14,6 +18,9 @@ function IndividualView() {
   const [color, setColor] = useState("white");
   const [size, setSize] = useState("M");
   const [url, setUrl] = useState("");
+  const [quantity, setQuantity] = useState("");
+
+  let arrUnits = [1, 2, 3, 4, 5, 6];
 
   useEffect(() => {
     axios(`/api/products/styles/${style}/${color}/${size}`).then((res) =>
@@ -49,8 +56,10 @@ function IndividualView() {
       quantity: 1,
     });
   };
-
-  console.log("SOY COLOR", color);
+  //DROPTOWN
+  const handleChange = (event) => {
+    setQuantity(event.target.value);
+  };
 
   return (
     <div className="bg-white e">
@@ -110,6 +119,26 @@ function IndividualView() {
                   onChange={addUrl}
                 ></input>
               </div>
+              <FormControl
+                style={{ backgroundColor: "white" }}
+                sx={{ mt: 3, minWidth: 120 }}
+                size="small"
+              >
+                <InputLabel id="demo-select-small">Quantity</InputLabel>
+                <Select
+                  labelId="demo-select-small"
+                  id="demo-select-small"
+                  value={quantity}
+                  label="Quantity"
+                  onChange={handleChange}
+                >
+                  {arrUnits.map((unit, i) => (
+                    <MenuItem key={i} value={unit}>
+                      {unit}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
               <p className="text-lg font-semibold leading-10 text-white mt-5">
                 Colores
               </p>
