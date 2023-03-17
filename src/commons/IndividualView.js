@@ -50,12 +50,15 @@ function IndividualView() {
 
   const addToCart = () => {
     const { id } = userLoged;
-    axios.post(`/api/cart/add/${id}`, {
-      data,
-      url,
-      quantity: 1,
-    });
+    axios
+      .post(`/api/cart/add/${id}`, {
+        data,
+        url,
+        quantity: 1,
+      })
+      .then((res) => alert(res.data));
   };
+
   //DROPTOWN
   const handleChange = (event) => {
     setQuantity(event.target.value);
@@ -75,7 +78,11 @@ function IndividualView() {
           <div className="relative mt-16 mb-16">
             <img
               className="rounded-md w-full h-full"
-              src={data.image}
+              src={
+                data.image
+                  ? data.image
+                  : "https://res.cloudinary.com/teepublic/image/private/s--EIkrN3bK--/t_Resized%20Artwork/c_crop,x_10,y_10/c_fit,w_447/c_crop,g_north_west,h_626,w_470,x_-12,y_0/g_north_west,u_upload:v1462829024:production:blanks:a59x1cgomgu5lprfjlmi,x_-407,y_-325/b_rgb:eeeeee/c_limit,f_auto,h_630,q_90,w_630/v1589046746/production/designs/9975248_0.jpg"
+              }
               alt="Remera"
             />
           </div>

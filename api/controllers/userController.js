@@ -2,86 +2,106 @@ const { User, Shirt_Model } = require("../models");
 const { generateToken } = require("../config/tokens");
 const { validateAuth } = require("../middlewares/auth");
 
-exports.getUsers = (req, res) => {
-    User.findAll({ where: { is_admin: false } }).then((result) =>
-      res.send(result)
-    );
-  };
-
-exports.registerUser = (req, res) => {
-
-    const { first_name, last_name, email, password, is_admin } = req.body;
-    User.create({ first_name, last_name, email, password, is_admin })
-      .then((user) => res.status(201).send(user))
-      .catch((err) => console.log("error al registrar el usuario", err));
-  };
-
-
-exports.loginUser = (req, res) => {
-  const { email, password } = req.body;
-  User.findOne({ where: { email } }).then((user) => {
-    if (!user) return res.sendStatus(401);
-    user.validatePassword(password).then((isValid) => {
-      if (!isValid) return res.sendStatus(401);
-
-      const payload = {
-        id: user.id,
-        email: user.email,
-        first_name: user.first_name,
-        last_name: user.last_name,
-        is_admin: user.is_admin,
-      };
-
-      const token = generateToken(payload);
-
-      res.cookie("token", token);
-
-      res.send(payload);
-      console.log(payload)
-    });
-  });
+exports.getUsers = async (req, res) => {
+  try {
+    const result = await User.findAll();
+    res.send(result);
+  } catch (error) {
+    console.log("Error desde getUsers", error);
+  }
 };
 
-exports.logoutUser = (req, res) => {
+exports.registerUser = async (req, res) => {
+  const { first_name, last_name, email, password, is_admin } = req.body;
+  try {
+    const user = await User.create({
+      first_name,
+      last_name,
+      email,
+      password,
+      is_admin,
+    });
+    res.status(201).send(user);
+  } catch (err) {
+    console.log("error al registrar el usuario", err);
+  }
+};
+
+exports.loginUser = async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    const user = await User.findOne({ where: { email } });
+    if (!user) return res.sendStatus(401);
+    const isValid = await user.validatePassword(password);
+    if (!isValid) return res.sendStatus(401);
+
+    const payload = {
+      id: user.id,
+      email: user.email,
+      first_name: user.first_name,
+      last_name: user.last_name,
+      is_admin: user.is_admin,
+    };
+
+    const token = generateToken(payload);
+
+    res.cookie("token", token);
+
+    res.send(payload);
+    console.log(payload);
+  } catch (err) {
+    console.log("error desde loginUser", err);
+  }
+};
+
+exports.logoutUser = async (req, res) => {
+  try {
     res.clearCookie("token");
     res.sendStatus(204);
-  };
+  } catch (err) {
+    console.log("error desde logoutUser", err);
+  }
+};
 
-exports.updateUser = (req, res) => {
-    const { first_name, last_name, email } = req.body;
-    const { id } = req.params;
-    User.update(
+exports.updateUser = async (req, res) => {
+  const { first_name, last_name, email } = req.body;
+  const { id } = req.params;
+  try {
+    const user = await User.update(
       { first_name, last_name, email },
-      {
-        where: { id },
-        returning: true,
-        plain: true,
-      }
-    )
-      .then((user) => res.send(user))
-      .catch((err) => console.log("error desde userEditRouter", err));
-  };
+      { where: { id }, returning: true, plain: true }
+    );
+    res.send(user);
+  } catch (err) {
+    console.log("error desde updateUser", err);
+  }
+};
 
-exports.updateUserByEmail = (req, res) => {
-    User.update(req.body, {
+exports.updateUserByEmail = async (req, res) => {
+  try {
+    const user = await User.update(req.body, {
       where: {
         email: req.body.email,
       },
-    })
-      .then((user) => res.send(user))
-      .catch((err) => console.log("error desde userEditRouter", err));
-  };
+    });
+    res.send(user);
+  } catch (err) {
+    console.log("error desde updateUserByEmail", err);
+  }
+};
 
-exports.deleteUser = (req, res) => {
-    User.destroy({
+exports.deleteUser = async (req, res) => {
+  try {
+    await User.destroy({
       where: {
         email: req.headers.email,
       },
-    })
-      .then(() => res.sendStatus(202))
-      .catch((err) => console.log("error desde userEditRouter", err));
-  };
-
+    });
+    res.sendStatus(202);
+  } catch (err) {
+    console.log("error desde deleteUser", err);
+  }
+};
 
 /* exports.getMe = (validateAuth, (req, res) => {
   res.send(req.user);
