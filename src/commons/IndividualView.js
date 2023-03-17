@@ -18,7 +18,7 @@ function IndividualView() {
   const [color, setColor] = useState("white");
   const [size, setSize] = useState("M");
   const [url, setUrl] = useState("");
-  const [quantity, setQuantity] = useState("");
+  const [quantity, setQuantity] = useState(1);
 
   let arrUnits = [1, 2, 3, 4, 5, 6];
 
@@ -54,7 +54,7 @@ function IndividualView() {
       .post(`/api/cart/add/${id}`, {
         data,
         url,
-        quantity
+        quantity,
       })
       .then((res) => alert(res.data));
   };
