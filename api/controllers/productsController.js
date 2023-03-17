@@ -80,11 +80,11 @@ exports.getSizesForModel = async (req, res) => {
 };
 
 exports.createShirtCustomized = async (req, res) => {
-  const { data, url } = req.body;
+  const { data, url, quantity } = req.body;
   const { id } = req.params;
   try {
     const user = await User.findByPk(id);
-    const shirtCustom = await Shirt_Customize.create({ urlImage: url });
+    const shirtCustom = await Shirt_Customize.create({ urlImage: url, quantity });
     await shirtCustom.setUser(user.id);
     await shirtCustom.setModel(data.id);
   } catch (error) {

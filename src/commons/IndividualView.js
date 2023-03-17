@@ -54,7 +54,7 @@ function IndividualView() {
       .post(`/api/cart/add/${id}`, {
         data,
         url,
-        quantity: 1,
+        quantity
       })
       .then((res) => alert(res.data));
   };
