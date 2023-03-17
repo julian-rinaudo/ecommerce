@@ -7,13 +7,14 @@ import PopUp from "./PopUp";
 function IndividualView() {
   const { style } = useParams();
   const userLoged = useSelector((state) => state.user);
-  const [popUp, setPopUp] = useState(false)
+  const [popUp, setPopUp] = useState(false);
   const [data, setData] = useState({});
   const [colorsAvailable, setColorsAvailable] = useState([]);
   const [sizesAvailable, setSizesAvailable] = useState([]);
   const [color, setColor] = useState("white");
   const [size, setSize] = useState("M");
   const [url, setUrl] = useState("");
+
   useEffect(() => {
     axios(`/api/products/styles/${style}/${color}/${size}`).then((res) =>
       setData(res.data)
@@ -48,6 +49,8 @@ function IndividualView() {
       quantity: 1,
     });
   };
+
+  console.log("SOY COLOR", color);
 
   return (
     <div className="bg-white e">
@@ -87,8 +90,9 @@ function IndividualView() {
                 {data?.stock}
               </p>
               <div className="flex gap-4">
-                {sizesAvailable.map((size,i) => (
-                  <button key={i}
+                {sizesAvailable.map((size, i) => (
+                  <button
+                    key={i}
                     className="w-16 py-2 rounded-full bg-gray-200 hover:bg-gray-300 focus:bg-fuchsia-700"
                     onClick={() => addSize(size)}
                   >
@@ -112,8 +116,9 @@ function IndividualView() {
               <div className="flex gap-4">
                 <div className="mt-2 flex justify-between gap-2">
                   {colorsAvailable.map((color, i) => (
-                    <button key={i}
-                      className={`w-8 h-8 rounded-full bg-${
+                    <button
+                      key={i}
+                      className={`w-8 h-8 rounded-full  bg-${
                         color === "white" ? color : color + "-500"
                       } border-2 border-gray-200 focus:outline-none`}
                       onClick={() => addColor(color)}
